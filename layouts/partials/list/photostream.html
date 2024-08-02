@@ -1,0 +1,2 @@
+{{ $photoStream := where (sort .Site.RegularPages "File.BaseFileName" "asc").ByDate.Reverse "Section" "photos" }}
+{{ return $photoStream }}

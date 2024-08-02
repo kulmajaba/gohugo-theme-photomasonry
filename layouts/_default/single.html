@@ -1,0 +1,19 @@
+{{- define "main" }}
+  <div class="Post-headingContainer">
+    <h1 class="u-noMargin">{{ .Title }}</h1>
+    <p class="Post-subtitle u-noMargin">
+    {{- with .Date -}}
+      {{- $dateMachine := . | time.Format "2006-01-02T15:04:05-07:00" -}}
+      {{- $dateHuman := . | time.Format ":date_long" -}}
+      <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+    {{- end -}}
+    {{- with .Lastmod -}}
+      {{- $dateMachine := . | time.Format "2006-01-02T15:04:05-07:00" -}}
+      {{- $dateHuman := . | time.Format ":date_long" }}
+      · {{ i18n "lastMod" }} <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+    {{- end -}}
+    </p>
+  </div>
+  {{- .Content -}}
+  {{- partial "terms" (dict "taxonomy" "tags" "page" .) -}}
+{{- end -}}

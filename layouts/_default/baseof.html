@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="{{ or site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+  <head>
+    {{- partial "head" . -}}
+  </head>
+  <body class="App">
+    {{- partial "header" . -}}
+    <main class="App-content u-textContentWidth u-responsiveHPadding">
+      {{- block "main" . -}}{{- end -}}
+    </main>
+    {{ partial "footer" . -}}
+  </body>
+</html>

@@ -1,0 +1,119 @@
+* {
+  box-sizing: border-box;
+  scrollbar-color: var(--color-bg-scrollbar-thumb) var(--color-bg-scrollbar);
+  scrollbar-width: thin;
+}
+
+/* Escaping selector because sass is dumb */
+@supports #{"selector(::-webkit-scrollbar)"} {
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-bg-scrollbar);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: var(--color-bg-scrollbar-thumb);
+  }
+
+  *::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+  }
+}
+
+html {
+  height: 100%;
+  font-family: "Gothic A1", sans-serif;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+body {
+  min-height: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+p {
+  margin-block: 0.5em;
+}
+
+a {
+  color: var(--color-text-link);
+}
+
+span {
+  font: inherit;
+}
+
+code {
+  font-family: Inconsolata, monospace;
+}
+
+p code {
+  color: var(--color-text-code);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+}
+
+h1 {
+  margin: 1rem 0;
+  font-size: var(--size-h1);
+}
+
+h2 {
+  font-size: var(--size-h2);
+}
+
+h3 {
+  font-size: var(--size-h3);
+}
+
+h4 {
+  font-size: var(--size-h4);
+}
+
+h5 {
+  font-size: var(--size-h5);
+}
+
+h6 {
+  font-size: var(--size-h6);
+}
+
+ul,
+ol {
+  padding-inline-start: 2em;
+}
+
+table {
+  display: block;
+  border-collapse: collapse;
+  margin-block: 0.5em;
+  overflow-x: auto;
+}
+
+th {
+  padding: 0.2em 0.5em;
+  border: 1px solid var(--color-border-table);
+  font-weight: 500;
+  text-align: left;
+}
+
+td {
+  padding: 0.2em 0.5em;
+  border: 1px solid var(--color-border-table);
+}

@@ -1,0 +1,71 @@
+/** @define App */
+
+.App {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App-content {
+  display: flex;
+  width: 100%;
+  max-width: var(--max-width-content);
+  flex: 1;
+  flex-direction: column;
+  padding: var(--spacing-l) 0;
+}
+
+/* stylelint-disable-next-line plugin/selector-bem-pattern */
+.App-contentContainer > * {
+  text-align: center;
+}
+
+.App-postsContainer {
+  width: 100%;
+  padding-bottom: 1em;
+}
+
+.App-posts {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-l);
+  overflow-x: auto;
+
+  @media (max-width: $layout-breakpoint-m) {
+    gap: var(--spacing-s);
+  }
+}
+
+.App-post {
+  display: flex;
+  min-width: 240px;
+  flex: 1 1 0;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5em 1em;
+  background: var(--color-bg-card);
+  color: var(--color-text-secondary);
+  gap: var(--spacing-s);
+  text-decoration: none;
+}
+
+.App-postTitle {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  text-overflow: ellipsis;
+}
+
+.App-postTime {
+  font-size: var(--size-body-small);
+  font-weight: 500;
+}
+
+.App-thumbnailsContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}

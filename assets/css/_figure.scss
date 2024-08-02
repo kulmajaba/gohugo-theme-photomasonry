@@ -1,0 +1,185 @@
+/** @define Figure */
+
+.Figure {
+  margin: 0;
+}
+
+.Figure-variables {
+  --Figure-caption-header-padding: var(--spacing-s) 0 var(--spacing-l);
+  --Figure-caption-header-height: calc(var(--size-h1) + var(--spacing-l) + var(--spacing-s));
+  --Figure-img-max-height: calc(100svh - var(--Figure-caption-header-height));
+  --Figure-control-offset-x: calc(var(--Figure-caption-header-height) / 2 + 4px);
+  --Figure-control-offset-y: calc(var(--Figure-caption-header-height) / 2 + 4px);
+  --Figure-caption-padding: 0 calc(var(--Figure-control-offset-x) * 2) var(--spacing-xxl);
+
+  @media (max-width: $layout-breakpoint-s) {
+    --Figure-control-offset-x: calc(48px / 2);
+  }
+}
+
+.Figure-controlLayer {
+  position: fixed;
+  z-index: 2;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.Figure-control {
+  position: absolute;
+  display: flex;
+  pointer-events: all;
+}
+
+/* stylelint-disable-next-line plugin/selector-bem-pattern */
+.Figure-control svg {
+  fill: var(--color-icon);
+  filter: drop-shadow(0 0 1px var(--color-icon-drop-shadow));
+  transition: fill var(--timing-s);
+}
+
+.Figure-captionToggle {
+  position: absolute;
+  top: calc(var(--Figure-caption-header-height) - 32px);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.Figure-control.is-disabled,
+.Figure-captionToggle.is-disabled {
+  display: none;
+  pointer-events: none;
+}
+
+/* stylelint-disable-next-line plugin/selector-bem-pattern */
+.Figure-captionToggle svg {
+  fill: var(--color-icon);
+  transition: fill var(--timing-s);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .Figure-control:hover svg {
+    fill: var(--color-icon-hover);
+  }
+
+  .Figure-captionToggle:hover svg {
+    fill: var(--color-icon-hover);
+  }
+}
+
+.Figure-close {
+  top: var(--Figure-control-offset-y);
+  right: var(--Figure-control-offset-x);
+  transform: translate(50%, -50%);
+}
+
+.Figure-previous {
+  bottom: var(--Figure-control-offset-y);
+  left: var(--Figure-control-offset-x);
+  transform: translate(-50%, 50%);
+}
+
+.Figure-next {
+  right: var(--Figure-control-offset-x);
+  bottom: var(--Figure-control-offset-y);
+  transform: translate(50%, 50%);
+}
+
+.Figure-imageContainer {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: var(--Figure-img-max-height);
+  align-items: center;
+  justify-content: center;
+}
+
+.Figure-img {
+  /* 
+  With CSS Values and Units Level 4, something like the following formula could be used to offset the image
+  bottom: clamp(0, calc(50% + ((100vw / (100vh - var(--Figure-caption-header-height) * 2)) - (var(--image-width) / var(--image-height))) * 50%), var(--Figure-caption-header-height));
+
+  Explanation:
+  (100vw / (100vh - var(--Figure-caption-header-height) * 2) calculates the aspect ratio of the viewport with the title bar subtracted from top and bottom
+  (var(--image-width) / var(--image-height)) calculates the aspect ratio of the image
+  The difference between the two is the offset needed to allow the image to occupy the maximum height and preferably center vertically
+  The result is then clamped between 0 and the height of the title bar, to at max offset the image will be at the top of the viewport
+  */
+  width: 100%;
+  height: auto;
+  max-height: var(--Figure-img-max-height);
+  aspect-ratio: var(--image-width) / var(--image-height);
+  object-fit: contain;
+}
+
+.Figure-captionContainer {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+  padding-top: var(--Figure-img-max-height);
+  overflow-y: scroll;
+}
+
+.Figure-captionContent {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid var(--color-bg);
+  background: var(--color-bg-transparent);
+}
+
+.Figure-caption {
+  display: flex;
+  width: 100%;
+
+  /* The max width could also be tied to the images max width with better calculations */
+  max-width: var(--max-width-content);
+  flex-direction: column;
+  padding: var(--Figure-caption-padding);
+}
+
+.Figure-captionHeader {
+  display: flex;
+  min-height: var(--Figure-caption-header-height);
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--Figure-caption-header-padding);
+  gap: var(--spacing-l) var(--spacing-l);
+}
+
+.Figure-aside {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  margin-top: 4px;
+  color: var(--color-text-secondary);
+
+  @media (max-width: $layout-breakpoint-s) {
+    font-size: var(--size-body-small);
+  }
+}
+
+.Figure-asideInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* stylelint-disable-next-line plugin/selector-bem-pattern */
+.Figure-asideInfo:not(:first-child)::before {
+  width: 1px;
+  height: 24px;
+  margin: var(--spacing-s);
+  background: var(--color-text-secondary);
+  content: "";
+
+  @media (max-width: $layout-breakpoint-s) {
+    margin: var(--spacing-xs);
+  }
+}

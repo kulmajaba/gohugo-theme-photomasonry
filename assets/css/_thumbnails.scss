@@ -1,0 +1,52 @@
+/** @define Thumbnails */
+
+.Thumbnails {
+  display: flex;
+  width: 100%;
+  max-width: var(--max-width-content);
+  flex-flow: row wrap;
+  justify-content: center;
+  padding: 0 var(--responsive-padding-horizontal-zero);
+  gap: var(--spacing-s);
+}
+
+.Thumbnails-thumb {
+  --Thumbnails-max-height: Min(50vh, 480px);
+  --Thumbnails-min-height: 280px;
+  --Thumbnails-aspect-ratio: calc(var(--image-width) / var(--image-height));
+
+  position: relative;
+  display: flex;
+  min-width: Min(100%, calc(var(--Thumbnails-min-height) * var(--Thumbnails-aspect-ratio)));
+  max-width: Min(100%, calc(var(--Thumbnails-max-height) * var(--Thumbnails-aspect-ratio)));
+  flex: var(--Thumbnails-aspect-ratio);
+  aspect-ratio: var(--Thumbnails-aspect-ratio);
+
+  @media (max-width: 480px) {
+    --Thumbnails-max-height: Min(75vh, 480px);
+
+    flex: 1;
+  }
+}
+
+.Thumbnails-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--spacing-m) var(--spacing-s) var(--spacing-s);
+  border-radius: 2px;
+  background: linear-gradient(
+    0deg,
+    var(--color-bg-transparent-dark) 0% calc(100% - var(--spacing-m)),
+    transparent 100%
+  );
+  color: var(--color-text-on-dark);
+  text-overflow: ellipsis;
+}
+
+.Thumbnails-thumbImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

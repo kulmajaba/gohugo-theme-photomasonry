@@ -1,0 +1,58 @@
+/** @define PostSummary */
+
+.PostSummary-post {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--color-bg-card);
+  color: var(--color-text);
+  text-decoration: none;
+
+  @media (max-width: $layout-breakpoint-s) {
+    flex-direction: column;
+    justify-content: stretch;
+  }
+}
+
+.PostSummary-thumbnailContainer {
+  display: flex;
+  min-width: Min(240px, 30%);
+  flex: 1 2 auto;
+  flex-direction: row;
+  align-items: center;
+  align-self: stretch;
+
+  @media (max-width: $layout-breakpoint-s) {
+    width: 100%;
+    height: 180px;
+  }
+}
+
+.PostSummary-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.PostSummary-textContainer {
+  display: flex;
+  flex: 2 1 auto;
+  flex-direction: column;
+  padding: var(--spacing-m);
+  gap: var(--spacing-s);
+}
+
+.PostSummary-headingContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxs);
+}
+
+.PostSummary-subtitle {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.PostSummary-readMore {
+  text-decoration: underline;
+}

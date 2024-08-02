@@ -1,0 +1,20 @@
+<a class="PostSummary-post" href="{{ .RelPermalink }}">
+  {{- with .Resources.Get .Params.cover -}}
+    {{- $image := .Fill "560x560 jpg" -}}
+    <div class="PostSummary-thumbnailContainer">
+      <img class="PostSummary-thumbnail" src="{{ $image.RelPermalink }}" alt="" style="--image-width:{{ $image.Width }};--image-height:{{ $image.Height }};">
+    </div>
+  {{- end -}}
+  <div class="PostSummary-textContainer">
+    <div class="PostSummary-headingContainer">
+      <h2 class="PostSummary-heading u-noMargin">{{ .LinkTitle }}</h2>
+      {{- with .Date -}}
+        {{- $dateMachine := . | time.Format "2006-01-02T15:04:05-07:00" -}}
+        {{- $dateHuman := . | time.Format ":date_long" -}}
+        <time class="PostSummary-subtitle" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+      {{- end -}}
+    </div>
+    <p class="u-noMargin">{{ .Summary }}</p>
+    <p class="PostSummary-readMore u-noMargin">{{ i18n "readMore" }}</p>
+  </div>
+</a>

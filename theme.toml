@@ -1,0 +1,19 @@
+name = 'photomasonry'
+license = 'MIT'
+licenselink = 'https://github.com/kulmajaba/gohugo-theme-photomasonry/LICENSE'
+description = ''
+
+# The home page of the theme, where the source can be found
+homepage = 'https://github.com/kulmajaba/gohugo-theme-photomasonry'
+
+# If you have a running demo of the theme
+demosite = 'https://kulmajaba.com'
+
+tags = ["dark", "gallery", "responsive"]
+features = ["galleries", "posts", "pages"]
+
+min_version = "0.127.0"
+
+[author]
+  name = 'Mika Kuitunen'
+  homepage = 'https://kulmajaba.com'

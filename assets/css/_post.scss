@@ -1,0 +1,41 @@
+/** @define Post */
+
+.Post-headingContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 0;
+  gap: var(--spacing-xxs);
+}
+
+.Post-subtitle {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.Post-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-inline: 5%;
+
+  @media (max-width: $layout-breakpoint-m) {
+    margin-inline: 0;
+  }
+}
+
+.Post-img {
+  --Post-img-max-height: Min(960px, 80vh);
+
+  width: 100%;
+  max-width: calc(var(--Post-img-max-height) * var(--image-width) / var(--image-height));
+  height: auto;
+  max-height: var(--Post-img-max-height);
+  aspect-ratio: var(--image-width) / var(--image-height);
+  object-fit: contain;
+}
+
+.Post-imgCaption {
+  color: var(--color-text-secondary);
+  font-size: var(--size-body-small);
+  margin-block-start: 0.5em;
+}

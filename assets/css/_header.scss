@@ -1,0 +1,235 @@
+/** @define Header */
+
+.Header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-card);
+}
+
+.Header:has(.Header-menuToggleCheckbox:checked) {
+  position: sticky;
+  top: 0;
+}
+
+.Header-content {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: var(--max-width-content);
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-s) var(--responsive-padding-horizontal);
+  gap: var(--spacing-l);
+}
+
+.Header-group {
+  display: flex;
+  overflow: hidden;
+  flex-direction: row;
+  align-items: center;
+
+  @media (max-width: $layout-breakpoint-s) {
+    overflow: visible;
+  }
+}
+
+.Header-titleContainer {
+  display: flex;
+  flex-direction: column;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.Header-titleContainer.is-logo {
+  width: 25vw;
+  min-width: 80px;
+  max-width: 120px;
+}
+
+/* stylelint-disable-next-line plugin/selector-bem-pattern */
+.Header-titleContainer svg {
+  width: 100%;
+  height: auto;
+  fill: var(--color-logo);
+}
+
+.Header-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-xs);
+
+  @media (max-width: $layout-breakpoint-m) {
+    display: none;
+  }
+}
+
+.Header-crumbsitem {
+  min-width: 72px;
+  max-width: 25vw;
+}
+
+.Header-crumbsitem.is-menu {
+  min-width: auto;
+  max-width: none;
+  gap: var(--spacing-xs);
+}
+
+.Header-navItem.is-menu {
+  /* Pad with the size of icon + gap to align with breadcrumbs */
+  padding-left: calc(16px + var(--spacing-xs));
+}
+
+/* stylelint-disable plugin/selector-bem-pattern */
+.Header-crumbsitem svg {
+  flex: 0 0 auto;
+  fill: var(--color-text-secondary);
+}
+
+.Header-crumbsitem:not(.is-menu)::before,
+.Header-navItem:not(.is-menu, :first-child)::before {
+  width: 1px;
+  height: 24px;
+  margin: var(--spacing-s);
+  background: var(--color-text-secondary);
+  content: "";
+}
+/* stylelint-enable plugin/selector-bem-pattern */
+
+.Header-crumbstext {
+  overflow: hidden;
+  border-bottom: 1px solid transparent;
+  margin: 4px 0 0;
+  font-size: var(--size-body-small);
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Header-crumbslink {
+  color: var(--color-text-secondary);
+  transition: border-bottom var(--timing-s);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .Header-crumbslink:hover {
+    border-bottom: 1px solid var(--color-text-secondary);
+  }
+}
+
+.Header-navLink {
+  border-bottom: 1px solid transparent;
+  color: var(--color-text-secondary);
+  font-family: "Playfair Display", serif;
+  text-decoration: none;
+  transition: border-bottom var(--timing-s);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .Header-navLink:hover {
+    border-bottom: 1px solid var(--color-text-secondary);
+  }
+}
+
+.Header-menuToggle {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 32px;
+  height: 32px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+  user-select: none;
+
+  /* Escaping > because sass is dumb */
+  @media #{"(width > #{$layout-breakpoint-m})"} {
+    display: none;
+  }
+}
+
+.Header-menuToggleCheckbox {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  opacity: 0;
+  -webkit-touch-callout: none;
+}
+
+.Header-menuHamburger {
+  z-index: 1;
+  display: block;
+  width: 32px;
+  height: 3px;
+  border-radius: 4px;
+  background: var(--color-text-secondary);
+  transform-origin: 1.5px center;
+  transition: transform var(--timing-s) cubic-bezier(0.4, 0.1, 0.1, 0.9), opacity var(--timing-s) ease;
+}
+
+.Header-menuToggleCheckbox:checked ~ .Header-menuHamburger.is-first {
+  transform: translate(4.7px, 0) rotate(45deg);
+}
+
+.Header-menuToggleCheckbox:checked ~ .Header-menuHamburger.is-second {
+  opacity: 0;
+  transform: translate(4.7px, 0) scale(0.2, 0.2);
+}
+
+.Header-menuToggleCheckbox:checked ~ .Header-menuHamburger.is-third {
+  transform: translate(4.7px, 0) rotate(-45deg);
+}
+
+.Header-menu {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-height: calc(100dvh - 100%);
+  background: var(--color-bg-card);
+  filter: drop-shadow(0 2px 12px var(--color-icon-drop-shadow));
+  overflow-y: auto;
+  transform: translate(-101%, 100%);
+  transform-origin: 100% 0;
+  transition: transform var(--timing-s) cubic-bezier(0.4, 0.1, 0.1, 0.9);
+
+  /* Escaping > because sass is dumb */
+  @media #{"(width > #{$layout-breakpoint-m})"} {
+    display: none;
+  }
+}
+
+.Header:has(.Header-menuToggleCheckbox:checked) .Header-menu {
+  transform: translate(0, 100%);
+}
+
+.Header-menuContent {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-m) var(--responsive-padding-horizontal);
+  margin: 0;
+  gap: var(--spacing-s);
+  list-style-type: none;
+}
+
+.Header-menuSublist {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: var(--spacing-xs);
+  list-style-type: none;
+}
+
+.Header-menuSublist.is-borderBottom {
+  padding-bottom: var(--spacing-s);
+  border-bottom: 1px solid var(--color-border-table);
+}

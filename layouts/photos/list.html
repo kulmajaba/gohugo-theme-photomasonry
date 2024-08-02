@@ -1,0 +1,36 @@
+{{ $context := . -}}
+{{- range .Resources.ByType "image" -}}
+  {{- $baseFileName := strings.TrimSuffix ".jpg" .Name -}}
+  {{- if $context.GetPage $baseFileName -}}
+    {{- continue -}}
+  {{- else -}}
+    {{- warnf "Image exists but no content provided: %s (in %s)" .Name $context.RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+
+<!DOCTYPE html>
+<html lang="{{ or site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+  <head>
+    {{- partial "head" . -}}
+  </head>
+  <body class="App">
+    {{- partial "header" . -}}
+    <main class="App-content">
+      <h1 class="u-responsiveHPadding">{{- .Title -}}</h1>
+      {{- with .Content -}}
+        <div class="u-responsiveHPadding u-paddingBottom">
+          {{- . -}}
+        </div>
+      {{- end -}}
+      <div class="Thumbnails">
+        {{- range .Sections.ByTitle.ByDate -}}
+          {{- partial "photo-thumbnail" (dict "context" .) -}}
+        {{- end -}}
+        {{- range partial "list/gallery-pages" . -}}
+          {{- partial "photo-thumbnail" (dict "context" .) -}}
+        {{- end -}}
+      </div>
+    </main>
+    {{- partial "footer" . -}}
+  </body>
+</html>

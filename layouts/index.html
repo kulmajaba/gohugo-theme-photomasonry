@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="{{ or site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+  <head>
+    {{ partial "head" . -}}
+    {{ hugo.Generator }}
+  </head>
+  <body class="App">
+    {{- partial "header" . -}}
+    <main class="App-content u-alignCenter">
+      <div class="App-contentContainer u-alignCenter u-textContentWidth u-responsiveHPadding">
+        <!-- Note that the content for index.html, as a sort of list page, will pull from content/_index.md -->
+        {{- .Content -}}
+      </div>
+      {{- $posts := where .Site.RegularPages.ByDate.Reverse "Section" "posts" -}}
+      {{- with $posts -}}
+        <div class="App-postsContainer">
+          <h2 class="u-responsiveHPadding">
+            {{- i18n "homePostsTitle" -}}
+            {{- with site.GetPage "section" "posts" }} · <a href="{{ .RelPermalink }}">{{ i18n "seeAll" }}</a>{{- end -}}
+          </h2>
+          <div class="App-posts u-responsiveHPadding">
+            {{- range .Limit 3 -}}
+              <a class="App-post" href="{{ .RelPermalink }}">
+                <h3 class="App-postTitle u-noMargin">{{ .Title }}</h3>
+                {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
+                {{- $dateHuman := .Date | time.Format ":date_long" -}}
+                <time class="App-postTime" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+              </a>
+            {{- end -}}
+          </div>
+        </div>
+      {{- end -}}
+      <div class="App-thumbnailsContainer">
+        <h2 class="u-responsiveHPadding">
+          {{- i18n "homePhotosTitle" -}}
+          {{- with site.GetPage "section" "photos" }} · <a href="{{ .RelPermalink }}">{{ i18n "seeAll" }}</a>{{- end -}}
+        </h2>
+        <div class="Thumbnails">
+          {{ $photos := partial "list/photostream" . -}}
+          {{ range $photos.Limit 96 }}
+            {{- partial "photo-thumbnail" (dict "context" . "source" "photostream" "cropHorizontalImages" true) }}
+          {{ end -}}
+        </div>
+      </div>
+    </main>
+    {{ partial "footer" . -}}
+  </body>
+</html>

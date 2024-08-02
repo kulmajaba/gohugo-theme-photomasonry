@@ -1,0 +1,43 @@
+{{- $url := printf "%s" .RelPermalink -}}
+<header class="Header">
+  <div class="Header-content">
+    <div class="Header-group">
+        {{- with resources.Get .Site.Params.logo -}}
+          <a href="/" class="Header-titleContainer is-logo">
+            {{- .Content | safeHTML -}}
+          </a>
+        {{- else -}}
+          <a href="/" class="Header-titleContainer">
+            <h1 class="u-noMargin">{{ .Site.Title }}</h1>
+          </a>
+        {{- end -}}
+        <ul role="navigation" class="Header-nav u-noBullets">
+          {{- partial "header/breadcrumbs" (dict "context" . "menu" false) -}}
+        </ul>
+    </div>
+    <ul role="navigation" class="Header-nav u-noBullets">
+      {{- partial "header/sections" (dict "context" . "menu" false) -}}
+    </ul>
+
+    <div class="Header-menuToggle">
+      <input class="Header-menuToggleCheckbox" type="checkbox" />
+      
+      <span aria-hidden class="Header-menuHamburger is-first"></span>
+      <span aria-hidden class="Header-menuHamburger is-second"></span>
+      <span aria-hidden class="Header-menuHamburger is-third"></span>
+    </div>
+  </div>
+
+  <nav class="Header-menu">
+    <ul class="Header-menuContent">
+      {{- if not .IsHome }}
+        <ul class="Header-menuSublist is-borderBottom">
+          {{- partial "header/breadcrumbs" (dict "context" . "menu" true) -}}
+        </ul>
+      {{- end -}}
+      <ul class="Header-menuSublist">
+        {{- partial "header/sections" (dict "context" . "menu" true) -}}
+      </ul>
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ or site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+  <head>
+    {{ partial "head" . }}
+    {{ partialCached "head/photo-js.html" . }}
+  </head>
+  <body>
+    <main class="Figure-variables">
+      {{ partial "photos/control-layer" . }}
+      <figure class="Figure">
+        <div class="Figure-imageContainer">
+          {{- $watermark := resources.Get .Site.Params.watermark -}}
+          {{- $baseFileName := .File.BaseFileName -}}
+          {{- $imageFileName := print $baseFileName ".jpg" -}}
+          {{- with .CurrentSection.Resources.Get $imageFileName -}}
+            {{- $image := .Fit "3840x2160" -}}
+            {{- with $watermark -}}
+              {{- $image = images.Filter (images.Overlay $watermark (sub $image.Width $watermark.Width 32) (sub $image.Height $watermark.Height 32)) $image  -}}
+            {{- end -}}
+            <img class="Figure-img" src="{{ $image.RelPermalink }}" alt="{{ $image.Title }}" style="--image-width:{{ $image.Width }};--image-height:{{ $image.Height }};">
+          {{- else -}}
+            {{- errorf "Resource not found: %s" $imageFileName -}}
+          {{- end -}}
+        </div>
+        <div id="captionContainer" class="Figure-captionContainer">
+          <div id="captionContent" class="Figure-captionContent">
+            <figcaption class="Figure-caption">
+              <div class="Figure-captionHeader">
+                <h1 class="u-noMargin u-matchLineHeight">{{ .Title }}</h1>
+                <aside class="Figure-aside">
+                  <p class="Figure-asideInfo u-noMargin">{{- .Params.location -}}</p>
+                  {{- $dateHuman := .Date | time.Format "2006" }}
+                  <time class="Figure-asideInfo" datetime="{{ $dateHuman }}">{{ $dateHuman }}</time>
+                  <p class="Figure-asideInfo u-noMargin">{{ .Params.medium }}</p>
+                </aside>
+              </div>
+              {{ .Content -}}
+            </figcaption>
+            {{- $moreIcon := resources.Get "svg/CaretDown.svg" }}
+            <button id="toggleCaption" type="button" class="Figure-captionToggle is-disabled">{{ $moreIcon.Content | safeHTML }}</button>
+          </div>
+        </div>
+      </figure>
+    </main>
+  </body>
+</html>

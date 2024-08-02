@@ -1,0 +1,10 @@
+{{- $menu := .menu -}}
+{{- $class := partial "conditional-class" (dict "condition" $menu "class" "is-menu") -}}
+
+{{- with .context -}}
+  {{- range .Site.Sections -}}
+    <li class="Header-navItem u-alignRowCenter {{ $class }}">
+      <a class="Header-navLink" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </li>
+  {{- end -}}
+{{- end -}}

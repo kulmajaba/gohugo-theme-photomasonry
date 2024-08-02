@@ -1,0 +1,39 @@
+{{- $cropImages := .cropImages -}}
+{{- $source := .source -}}
+{{- $isSection := .context.IsSection -}}
+{{- $title := .context.Title -}}
+
+{{- with .context -}}
+  {{- $coverFileName := partial "get-cover-image" . -}}
+  {{- if eq $coverFileName "" -}}
+    {{- errorf "Cannot render thumbnail for %s" .RelPermalink -}}
+  {{- end -}}
+
+  {{- $url := .RelPermalink -}}
+  {{- if $source -}}
+    {{- $url = printf "%s?source=%s" .RelPermalink $source -}}
+  {{- end -}}
+
+  {{- with partial "get-resource" (dict "context" . "fileName" $coverFileName) -}}
+    {{- $image := .Fit "1200x480" -}}
+    {{- if or $cropImages $isSection -}}
+      {{- if gt (div (float .Width) .Height) 2.2 -}}
+        {{- $image = .Fill "1056x480" -}}
+      {{- else if lt (div (float .Width) .Height) 0.8 -}}
+        {{- $image = .Fill "384x480" -}}
+      {{- else -}}
+        {{- $image = .Fit "960x480" -}}
+      {{- end -}}
+    {{- end -}}
+    <a class="Thumbnails-thumb" href="{{ $url }}" style="--image-width:{{ $image.Width }};--image-height:{{ $image.Height }};">
+      {{ if $isSection -}}
+        <h2 class="Thumbnails-title u-noMargin">
+          {{- $title -}}
+        </h2>
+      {{- end -}}
+      <img class="Thumbnails-thumbImg" loading="lazy" src="{{ $image.RelPermalink }}" alt="{{ $title }}">
+    </a>
+  {{- else -}}
+    {{- errorf "Resource not found for %s: %s" .RelPermalink $coverFileName -}}
+  {{- end -}}
+{{- end -}}

@@ -1,0 +1,26 @@
+{{- $menu := .menu -}}
+{{- $class := partial "conditional-class" (dict "condition" $menu "class" "is-menu") -}}
+{{- $arrowIcon := resources.Get "svg/ArrowBendDownRight.svg" -}}
+
+{{- with .context -}}
+  {{- range .Ancestors.Reverse }}
+    {{- if not .IsHome }}
+      <li class="Header-crumbsitem u-alignRowCenter {{ $class }}">
+        {{- if $menu -}}
+          {{- $arrowIcon.Content | safeHTML -}}
+        {{- end -}}
+        <a class="Header-crumbstext Header-crumbslink" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </li>
+    {{- end }}
+  {{- end }}
+  {{- if not .IsHome }}
+      <li class="Header-crumbsitem u-alignRowCenter {{ $class }}">
+        {{- if $menu -}}
+          {{- $arrowIcon.Content | safeHTML -}}
+        {{- end -}}
+        <p class="Header-crumbstext">
+          {{ .Title }}
+        </p>
+      </li>
+  {{- end }}
+{{- end -}}
