@@ -12,6 +12,39 @@
   font-weight: 500;
 }
 
+.Post-imgContentContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2em;
+  margin-block: 0.5em;
+
+  @media (max-width: $layout-breakpoint-s) {
+    flex-direction: column;
+  }
+}
+
+.Post-imgContentContainer.is-reverse {
+  flex-direction: row-reverse;
+
+  @media (max-width: $layout-breakpoint-s) {
+    flex-direction: column;
+  }
+}
+
+.Post-imgContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-block: 1em;
+  margin-inline: 5%;
+}
+
+.Post-imgAdjacentContent {
+  display: flex;
+  flex-direction: column;
+}
+
 .Post-figure {
   display: flex;
   flex-direction: column;
@@ -21,6 +54,14 @@
   @media (max-width: $layout-breakpoint-m) {
     margin-inline: 0;
   }
+}
+
+.Post-figure.is-inContentContainer {
+  flex: 0 0 40%;
+}
+
+.Post-imgContentContainer > .Post-figure {
+  margin: 0;
 }
 
 .Post-img {
@@ -35,6 +76,14 @@
   max-height: var(--Post-img-max-height);
   aspect-ratio: var(--image-width) / var(--image-height);
   object-fit: contain;
+}
+
+.Post-img.is-inContentContainer {
+  width: 40%;
+
+  @media (max-width: $layout-breakpoint-s) {
+    width: 80%;
+  }
 }
 
 .Post-imgCaption {

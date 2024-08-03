@@ -48,7 +48,10 @@ theme = 'kulmajaba'
 
 ## Usage
 
-The theme is set up with the assumption that `content/photos` will be your photo gallery folder. You can nest more sections inside it which will become their own galleries.
+### Photos
+
+The theme is set up with the assumption that `content/photos` will be your photo gallery folder.
+You can nest more sections inside it which will become their own galleries.
 
 ```
 my-website/
@@ -73,7 +76,8 @@ photos/
   └── photo-1.md
 ```
 
-For pages in `content/photos` the images are automatically resized to max. 3840x2160 and watermarked if you have set a watermark. To save space in your builds you should disable publishing the original image files for every section in `content/photos`:
+For pages in `content/photos` the images are automatically resized to max. 3840x2160 and watermarked if you have set a watermark.
+To save space in your builds you should disable publishing the original image files for every section in `content/photos`:
 
 `content/photos/_index.md`:
 ```yaml
@@ -83,3 +87,41 @@ build:
   publishResources: false
 ---
 ```
+
+### Page images
+
+You can embed images to normal pages either with the markdown syntax or a more flexible shortcode.
+
+#### Markdown
+
+```md
+![Alt text](screenshot-1.png "A title")
+```
+
+If the title exists, the image will be rendered inside a `<figure>` element and the title will be turned into a caption.
+
+#### Shortcode
+
+```md
+{{< image src="profile.jpg" alt="Picture of the author" title="Credit: John Doe" figure=true maxWidth="50%" />}}
+```
+
+Note the closing `/` at the end.
+
+The logic is more flexible:
+- If `figure=true` is present, the image will be rendered inside a `<figure>` element and the title will be turned into a caption.
+- If `maxWidth` is set, the image width will be constrained. CSS length units work.
+
+You can also create a block with text content and an image side by side (on large screens) by inserting the content between the shortcode tags:
+
+```md
+{{< image src="profile.jpg" alt="Picture of the author" title="Credit: John Doe" figure=true alignEnd=true />}}
+## Heading
+
+This content will appear next to the image.
+{{< /image >}}
+```
+
+- The image will be rendered at the start of the block (left for ltr direction) by default, setting `alignEnd=true` will switch the order
+- On small screens the block will flow vertically with the image always at the start.
+- Setting `maxWidth` in this situation will lead to unexpected results.
