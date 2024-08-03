@@ -19,8 +19,11 @@
     {{- end -}}
 
     {{- $src = $image.RelPermalink -}}
-    {{- $width = $image.Width -}}
-    {{- $height = $image.Height -}}
+
+    {{- if not (eq .MediaType.SubType "svg") -}}
+      {{- $width = $image.Width -}}
+      {{- $height = $image.Height -}}
+    {{- end -}}
 
     {{- with $u.RawQuery -}}
       {{- $src = printf "%s?%s" $src . -}}
