@@ -27,7 +27,10 @@
   --Post-img-max-height: Min(960px, 80vh);
 
   width: 100%;
-  max-width: calc(var(--Post-img-max-height) * var(--image-width) / var(--image-height));
+  max-width: Min(
+    calc(var(--Post-img-max-height) * var(--image-width, 1) / var(--image-height, 1)),
+    var(--Post-img-max-width)
+  );
   height: auto;
   max-height: var(--Post-img-max-height);
   aspect-ratio: var(--image-width) / var(--image-height);

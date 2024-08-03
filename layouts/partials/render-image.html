@@ -1,0 +1,60 @@
+{{- $u := urls.Parse .Destination -}}
+{{- $src := $u.String -}}
+{{- $width := false -}}
+{{- $height := false -}}
+
+{{- $ext := $u.Path | path.Ext | lower -}}
+{{- $unresizable := slice ".svg" ".avif" -}}
+
+{{- if not $u.IsAbs -}}
+  {{- $path := strings.TrimPrefix "./" $u.Path }}
+  {{- with or (.PageInner.Resources.Get $path) (resources.Get $path) -}}
+    {{- $image := . -}}
+
+    {{- if not (in $unresizable $ext) -}}
+      {{- $image = .Fit "960x960" -}}
+      {{- if gt (len $image.Content) 512000 -}}
+        {{- $image = .Fit "960x960 jpg" -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- $src = $image.RelPermalink -}}
+
+    {{- if not (eq .MediaType.SubType "svg") -}}
+      {{- $width = $image.Width -}}
+      {{- $height = $image.Height -}}
+    {{- end -}}
+
+    {{- with $u.RawQuery -}}
+      {{- $src = printf "%s?%s" $src . -}}
+    {{- end -}}
+    {{- with $u.Fragment -}}
+      {{- $src = printf "%s#%s" $src . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $style := "" -}}
+{{- with .MaxWidth -}}
+  {{- $style = printf "--Post-img-max-width:%s;" . -}}
+{{- end -}}
+
+{{- if and $width $height -}}
+  {{- $style = printf "%s--image-width:%d;--image-height:%d;" $style $width $height -}}
+{{- end -}}
+
+{{- warnf "Style: %s" $style -}}
+
+{{ if .IsBlock -}}
+  <figure class="Post-figure"{{- if $style }} style="{{ $style }}"{{- end -}}>
+{{- end }}
+  <img class="Post-img" loading="lazy" src="{{ $src }}"
+    {{- with .Text }} alt="{{ . }}"{{ end -}}
+    {{- with and (not .IsBlock) .Title }} title="{{ . | transform.HTMLEscape }}"{{ end -}}
+    {{- with $style -}}{{ printf " style=%s" $style | safeHTMLAttr }}{{- end -}}>
+  {{ with and .IsBlock .Title -}}
+    <figcaption class="Post-imgCaption">{{ . | markdownify }}</figcaption>
+  {{- end -}}
+{{- if .IsBlock }}
+  </figure>
+{{ end -}}

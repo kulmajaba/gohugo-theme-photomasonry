@@ -1,0 +1,7 @@
+{{- $destination := .Get "src" -}}
+{{- $text := .Get "alt" -}}
+{{- $title := .Get "title" -}}
+{{- $isBlock := .Get "figure" -}}
+{{- $maxWidth := .Get "maxWidth" -}}
+
+{{- partial "render-image" (dict "Destination" $destination "Text" $text "Title" $title "PageInner" .Page "IsBlock" $isBlock "MaxWidth" $maxWidth) -}}
