@@ -44,15 +44,15 @@
 {{- end -}}
 
 {{- if .AdjacentText -}}
-  <div class="Post-imgContentContainer{{- if .AlignEnd }} is-reverse{{- end -}}">
+  <div class="Post-imgContentContainer {{- if .AlignEnd }} is-reverse{{- end -}}">
 {{- end -}}
 {{- if and (not .AdjacentText) (not .IsBlock) -}}
   <span class="Post-imgContainer">
 {{- end -}}
 {{- if .IsBlock -}}
-  <figure class="Post-figure{{- if .AdjacentText }} is-inContentContainer{{- end -}}"{{- with $style -}}{{ printf " style=%s" $style | safeHTMLAttr }}{{- end -}}>
+  <figure class="Post-figure {{- if .AdjacentText }} is-inContentContainer{{- end -}}"{{- with $style -}}{{ printf " style=%s" $style | safeHTMLAttr }}{{- end -}}>
 {{- end }}
-  <img class="Post-img{{- if and .AdjacentText (not .IsBlock) }} is-inContentContainer{{- end -}}" loading="lazy" src="{{ $src }}"
+  <img class="Post-img {{- if and .AdjacentText (not .IsBlock) }} is-inContentContainer{{- end -}}" loading="lazy" src="{{ $src }}"
     {{- with .Text }} alt="{{ . }}"{{ end -}}
     {{- with and (not .IsBlock) .Title }} title="{{ . | transform.HTMLEscape }}"{{ end -}}
     {{- with $style -}}{{ printf " style=%s" $style | safeHTMLAttr }}{{- end -}}>

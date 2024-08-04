@@ -1,11 +1,10 @@
 {{- $menu := .menu -}}
-{{- $class := partial "conditional-class" (dict "condition" $menu "class" "is-menu") -}}
 {{- $arrowIcon := resources.Get "svg/ArrowBendDownRight.svg" -}}
 
 {{- with .context -}}
   {{- range .Ancestors.Reverse }}
     {{- if not .IsHome -}}
-      <li class="Header-crumbsitem u-alignRowCenter {{- $class -}}">
+      <li class="Header-crumbsitem u-alignRowCenter {{- if $menu }} is-menu{{- end -}}">
         {{ if $menu -}}
           {{- $arrowIcon.Content | safeHTML -}}
         {{- end -}}
@@ -14,7 +13,7 @@
     {{ end -}}
   {{- end -}}
   {{- if not .IsHome -}}
-      <li class="Header-crumbsitem u-alignRowCenter {{- $class -}}">
+      <li class="Header-crumbsitem u-alignRowCenter {{- if $menu }} is-menu{{- end -}}">
         {{ if $menu -}}
           {{- $arrowIcon.Content | safeHTML -}}
         {{- end -}}
