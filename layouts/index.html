@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ or site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
   <head>
-    {{ partial "head" . -}}
-    {{ hugo.Generator }}
+    {{- partial "head" . -}}
+    {{- partial "head-custom" . -}}
+    {{- hugo.Generator -}}
   </head>
   <body class="App">
     {{- partial "header" . -}}

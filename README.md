@@ -46,6 +46,43 @@ theme = 'kulmajaba'
     tabWidth = 2
 ```
 
+### Favicon
+
+Add your favicon assets to `my-website/static/` and add a `my-website/layouts/partials/head-custom.html` file where you can paste your favicon code.
+
+Files:
+```
+my-website/
+├── layouts/
+|   └── partials/
+|       └── head-custom.html
+└── static/
+    ├── favicon-192.png
+    ├── favicon-512.png
+    ├── apple-touch-icon.png
+    ├── favicon.ico
+    ├── favicon.svg
+    └── manifest.webmanifest
+```
+
+`my-website/layouts/partials/head-custom.html`:
+```html
+<link rel="icon" href="/favicon.ico" sizes="64x64">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicon_apple.png"> <!-- 180x180 -->
+<link rel="manifest" href="/manifest.webmanifest">
+```
+
+`my-website/static/manifest.webmanifest`:
+```json
+{
+  "icons": [
+    { "src": "/favicon_192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/favicon_512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}
+```
+
 ## Usage
 
 ### Photos
