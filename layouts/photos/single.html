@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ or site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
   <head>
-    {{- partial "head" . -}}
+    {{ partial "head" . }}
     {{- partial "head-custom" . -}}
-    {{ partialCached "head/photo-js.html" . }}
+    {{- partialCached "head/photo-js.html" . -}}
   </head>
   <body>
     <main class="Figure-variables">
-      {{ partial "photos/control-layer" . }}
+      {{- partial "photos/control-layer" . -}}
       <figure class="Figure">
         <div class="Figure-imageContainer">
           {{- $watermark := resources.Get .Site.Params.watermark -}}
@@ -35,7 +35,7 @@
                   <p class="Figure-asideInfo u-noMargin">{{ .Params.medium }}</p>
                 </aside>
               </div>
-              {{ .Content -}}
+              {{- .Content -}}
             </figcaption>
             {{- $moreIcon := resources.Get "svg/CaretDown.svg" }}
             <button id="toggleCaption" type="button" class="Figure-captionToggle is-disabled">{{ $moreIcon.Content | safeHTML }}</button>

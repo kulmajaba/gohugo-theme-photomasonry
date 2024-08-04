@@ -1,31 +1,31 @@
-{{ $fileName := .fileName }}
+{{- $fileName := .fileName -}}
 
-{{ $resource := .context.CurrentSection.Resources.Get $fileName }}
+{{- $resource := .context.CurrentSection.Resources.Get $fileName -}}
 
-{{ with .context }}
-  {{ if not $resource }}
-    {{ range .RegularPages.ByDate }}
-      {{ with .Resources.Get $fileName }}
-        {{ $resource = . }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
+{{- with .context -}}
+  {{- if not $resource -}}
+    {{- range .RegularPages.ByDate -}}
+      {{- with .Resources.Get $fileName -}}
+        {{- $resource = . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
 
-  {{ if not $resource }}
-    {{ range .Sections }}
-      {{ with .Resources.Get $fileName }}
-        {{ $resource = . }}
-      {{ end }}
-      {{ if $resource }}
-        {{ break }}
-      {{ else }}
-        {{ $resource = partial "get-resource" (dict "context" . "fileName" $fileName) }}
-        {{ if $resource }}
-          {{ break }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
-{{ end }}
+  {{- if not $resource -}}
+    {{- range .Sections -}}
+      {{- with .Resources.Get $fileName -}}
+        {{- $resource = . -}}
+      {{- end -}}
+      {{- if $resource -}}
+        {{- break -}}
+      {{- else -}}
+        {{- $resource = partial "get-resource" (dict "context" . "fileName" $fileName) -}}
+        {{- if $resource -}}
+          {{- break -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 
-{{ return $resource }}
+{{- return $resource -}}

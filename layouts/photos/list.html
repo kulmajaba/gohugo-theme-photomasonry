@@ -1,4 +1,4 @@
-{{ $context := . -}}
+{{- $context := . -}}
 {{- range .Resources.ByType "image" -}}
   {{- $baseFileName := strings.TrimSuffix ".jpg" .Name -}}
   {{- if $context.GetPage $baseFileName -}}
@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="{{ or site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
   <head>
-    {{- partial "head" . -}}
+    {{ partial "head" . }}
     {{- partial "head-custom" . -}}
   </head>
   <body class="App">
@@ -32,6 +32,6 @@
         {{- end -}}
       </div>
     </main>
-    {{- partial "footer" . -}}
+    {{ partial "footer" . }}
   </body>
 </html>

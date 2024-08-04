@@ -1,9 +1,9 @@
 {{- define "main" }}
   <h1>{{ .Title }}</h1>
-  {{- .Content -}}
+  {{ .Content -}}
   <div class="PostList-container">
     {{- range .Pages }}
       {{ .Render "summary" }}
     {{- end -}}
   </div>
-{{- end -}}
+{{ end -}}

@@ -1,2 +1,2 @@
-{{ $pages := (sort .RegularPages "File.BaseFileName" "asc").ByDate }}
-{{ return $pages }}
+{{- $pages := (sort .RegularPages "File.BaseFileName" "asc").ByDate -}}
+{{- return $pages -}}

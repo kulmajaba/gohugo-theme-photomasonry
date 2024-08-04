@@ -27,6 +27,6 @@
   {{- $nextClass := partial "conditional-class" (dict "condition" (not $pagesNext) "class" "is-disabled") -}}
 
   <a class="Figure-control Figure-close" id="close" href="{{ .Parent.RelPermalink }}" data-photo-stream-href="/">{{- $closeIcon.Content | safeHTML -}}</a>
-  <a class="Figure-control Figure-previous {{ $prevClass }}" id="previous" href="{{ $pagesPrev }}" data-photo-stream-href="{{ $photoStreamPrev }}">{{- $previousIcon.Content | safeHTML -}}</a>
-  <a class="Figure-control Figure-next {{ $nextClass }}" id="next" href="{{ $pagesNext }}" data-photo-stream-href="{{ $photoStreamNext }}">{{- $nextIcon.Content | safeHTML -}}</a>
+  <a class="Figure-control Figure-previous {{- $prevClass -}}" id="previous" href="{{ $pagesPrev }}" data-photo-stream-href="{{ $photoStreamPrev }}">{{- $previousIcon.Content | safeHTML -}}</a>
+  <a class="Figure-control Figure-next {{- $nextClass -}}" id="next" href="{{ $pagesNext }}" data-photo-stream-href="{{ $photoStreamNext }}">{{- $nextIcon.Content | safeHTML -}}</a>
 </div>

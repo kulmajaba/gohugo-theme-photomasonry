@@ -3,6 +3,6 @@
 {{- $title := .Get "title" -}}
 {{- $isBlock := .Get "figure" -}}
 {{- $maxWidth := .Get "maxWidth" -}}
-{{- $alignEnd := .Get "alignEnd" }}
+{{- $alignEnd := .Get "alignEnd" -}}
 
 {{- partial "render-image" (dict "Destination" $destination "Text" $text "Title" $title "PageInner" .Page "IsBlock" $isBlock "MaxWidth" $maxWidth "AlignEnd" $alignEnd "AdjacentText" .Inner) -}}

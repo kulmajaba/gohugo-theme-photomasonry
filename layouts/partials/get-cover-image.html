@@ -1,35 +1,35 @@
-{{ $coverFileName := "" }}
-{{ $relPermalink := .RelPermalink }}
+{{- $coverFileName := "" -}}
+{{- $relPermalink := .RelPermalink -}}
 
-{{ if .IsSection }}
-  {{ if .Params.cover }}
-    {{ $coverFileName = .Params.cover }}
-    {{ if eq $coverFileName "" }}
-      {{ errorf "Cover parameter present but not set in section: %s" $relPermalink }}
-    {{ end }}
-  {{ else }}
-    {{ with .Sections.ByDate }}
-      {{ with index . 0 }}
-        {{ $coverFileName = partial "get-cover-image" . }}
-      {{ end }}
-    {{ else }}
-      {{ with .RegularPages.ByDate }}
-        {{ with index . 0 }}
-          {{ $baseFileName := .File.BaseFileName }}
-          {{ $coverFileName = print $baseFileName ".jpg" }}
-          {{ if eq $coverFileName "" }}
-            {{ errorf "Cover not found for section: %s" $relPermalink }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
-{{ else }}
-  {{ $baseFileName := .File.BaseFileName }}
-  {{ $coverFileName = print $baseFileName ".jpg" }}
-  {{ if eq $coverFileName "" }}
-    {{ errorf "Cover not found for single image: %s" $relPermalink }}
-  {{ end }}
-{{ end }}
+{{- if .IsSection -}}
+  {{- if .Params.cover -}}
+    {{- $coverFileName = .Params.cover -}}
+    {{- if eq $coverFileName "" -}}
+      {{- errorf "Cover parameter present but not set in section: %s" $relPermalink -}}
+    {{- end -}}
+  {{- else -}}
+    {{- with .Sections.ByDate -}}
+      {{- with index . 0 -}}
+        {{- $coverFileName = partial "get-cover-image" . -}}
+      {{- end -}}
+    {{- else -}}
+      {{- with .RegularPages.ByDate -}}
+        {{- with index . 0 -}}
+          {{- $baseFileName := .File.BaseFileName -}}
+          {{- $coverFileName = print $baseFileName ".jpg" -}}
+          {{- if eq $coverFileName "" -}}
+            {{- errorf "Cover not found for section: %s" $relPermalink -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{- $baseFileName := .File.BaseFileName -}}
+  {{- $coverFileName = print $baseFileName ".jpg" -}}
+  {{- if eq $coverFileName "" -}}
+    {{- errorf "Cover not found for single image: %s" $relPermalink -}}
+  {{- end -}}
+{{- end -}}
 
-{{ return $coverFileName}}
+{{- return $coverFileName -}}

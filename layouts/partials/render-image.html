@@ -7,7 +7,7 @@
 {{- $unresizable := slice ".svg" ".avif" -}}
 
 {{- if not $u.IsAbs -}}
-  {{- $path := strings.TrimPrefix "./" $u.Path }}
+  {{- $path := strings.TrimPrefix "./" $u.Path -}}
   {{- with or (.PageInner.Resources.Get $path) (resources.Get $path) -}}
     {{- $image := . -}}
 
@@ -49,25 +49,25 @@
 {{- if and (not .AdjacentText) (not .IsBlock) -}}
   <span class="Post-imgContainer">
 {{- end -}}
-{{ if .IsBlock -}}
+{{- if .IsBlock -}}
   <figure class="Post-figure{{- if .AdjacentText }} is-inContentContainer{{- end -}}"{{- with $style -}}{{ printf " style=%s" $style | safeHTMLAttr }}{{- end -}}>
 {{- end }}
   <img class="Post-img{{- if and .AdjacentText (not .IsBlock) }} is-inContentContainer{{- end -}}" loading="lazy" src="{{ $src }}"
     {{- with .Text }} alt="{{ . }}"{{ end -}}
     {{- with and (not .IsBlock) .Title }} title="{{ . | transform.HTMLEscape }}"{{ end -}}
     {{- with $style -}}{{ printf " style=%s" $style | safeHTMLAttr }}{{- end -}}>
-  {{ if and .IsBlock .Title -}}
+  {{- if and .IsBlock .Title -}}
     <figcaption class="Post-imgCaption">{{ .Title | .PageInner.RenderString }}</figcaption>
   {{- end -}}
 {{- if .IsBlock }}
   </figure>
-{{ end -}}
+{{- end -}}
 {{- if and (not .AdjacentText) (not .IsBlock) -}}
 </span>
 {{- end -}}
 {{- if .AdjacentText -}}
     <section class="Post-imgAdjacentContent">
-      {{ .AdjacentText | .PageInner.RenderString }}
+      {{- .AdjacentText | .PageInner.RenderString -}}
     </section>
   </div>
 {{- end -}}
