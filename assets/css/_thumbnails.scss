@@ -22,10 +22,10 @@
   flex: var(--Thumbnails-aspect-ratio);
   aspect-ratio: var(--Thumbnails-aspect-ratio);
 
-  @media (max-width: 480px) {
+  @media (max-width: $layout-breakpoint-xs) {
     --Thumbnails-max-height: Min(75vh, 480px);
 
-    flex: 1;
+    flex: 1 0 100%;
   }
 }
 

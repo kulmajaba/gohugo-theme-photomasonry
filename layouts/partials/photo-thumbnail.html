@@ -15,14 +15,20 @@
   {{- end -}}
 
   {{- with partial "get-resource" (dict "context" . "fileName" $coverFileName) -}}
-    {{- $image := .Fit "1200x480" -}}
+    {{- $image := . -}}
+    {{- if ge (div (float .Width) .Height) 0.8 -}}
+      {{- $image = .Fit "1200x480 q60" -}}
+    {{- else -}}
+      {{- $image = .Fit "576x720 q60" -}}
+    {{- end -}}
+
     {{- if or $cropImages $isSection -}}
       {{- if gt (div (float .Width) .Height) 2.2 -}}
-        {{- $image = .Fill "1056x480" -}}
+        {{- $image = .Fill "1056x480 q60" -}}
       {{- else if lt (div (float .Width) .Height) 0.8 -}}
-        {{- $image = .Fill "384x480" -}}
+        {{- $image = .Fill "576x720 q60" -}}
       {{- else -}}
-        {{- $image = .Fit "960x480" -}}
+        {{- $image = .Fit "960x720 q60" -}}
       {{- end -}}
     {{- end -}}
     <a class="Thumbnails-thumb" href="{{ $url }}" style="--image-width:{{ $image.Width }};--image-height:{{ $image.Height }};">

@@ -49,7 +49,6 @@ const init = () => {
     captionButton.addEventListener('click', () => {
       scrollCaption(!captionOpen);
     });
-    captionButton.classList.remove('is-disabled')
   }
 
   document.querySelector('#captionContainer')?.addEventListener("scrollend", () => {
