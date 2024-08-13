@@ -3,7 +3,7 @@
   <head>
     {{ partial "head" . }}
     {{- partial "head-custom" . -}}
-    {{- partial "head/js.html" "js/photos-single.js" -}}
+    {{- partialCached "head/js-photos-single.html" . -}}
   </head>
   <body>
     <main class="Figure-variables">
