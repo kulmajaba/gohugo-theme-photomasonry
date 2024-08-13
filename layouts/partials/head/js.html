@@ -1,4 +1,4 @@
-{{- with resources.Get "js/photos/single.js" -}}
+{{- with resources.Get . -}}
   {{- if eq hugo.Environment "development" -}}
     {{- with . | js.Build -}}
       <script src="{{ .RelPermalink }}" async></script>

@@ -12,6 +12,7 @@
 <html lang="{{ or site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
   <head>
     {{ partial "head" . }}
+    {{- partial "head/js.html" "js/scroll-state.js" -}}
     {{- partial "head-custom" . -}}
   </head>
   <body class="App">
