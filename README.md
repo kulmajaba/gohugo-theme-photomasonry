@@ -14,7 +14,34 @@ A photos-first Hugo website theme with blog features
 
 ## Installation
 
+### As a Hugo Module (recommended)
 
+> ⚠️ If you installed a [Hugo binary](https://gohugo.io/getting-started/installing/#binary-cross-platform), you may not have Go installed on your machine. To check if Go is installed:
+> ```
+> $ go version
+> ```
+>  Go modules were considered production ready in v1.14. [Download Go](https://golang.org/dl/).
+
+1. From your project's root directory, initiate the hugo module system if you haven't already:
+
+   ```
+   $ hugo mod init github.com/<your_user>/<your_project>
+   ```
+
+2. Add the theme's repo to your `config.toml`:
+
+   ```toml
+   theme = 'github.com/kulmajaba/gohugo-theme-photomasonry'
+   ```
+
+### As Git Submodule
+
+Inside the folder of your Hugo site run:
+
+```
+$ git submodule add https://github.com/kulmajaba/gohugo-theme-photomasonry.git themes/photomasonry
+```
+For more information read the official [setup guide](//gohugo.io/getting-started/quick-start/) of Hugo.
 
 ## Configuration
 
@@ -65,14 +92,6 @@ my-website/
     └── manifest.webmanifest
 ```
 
-`my-website/layouts/partials/head-custom.html`:
-```html
-<link rel="icon" href="/favicon.ico" sizes="64x64">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/favicon_apple.png"> <!-- 180x180 -->
-<link rel="manifest" href="/manifest.webmanifest">
-```
-
 `my-website/static/manifest.webmanifest`:
 ```json
 {
@@ -81,6 +100,14 @@ my-website/
     { "src": "/favicon_512.png", "type": "image/png", "sizes": "512x512" }
   ]
 }
+```
+
+`my-website/layouts/partials/head-custom.html`:
+```html
+<link rel="icon" href="/favicon.ico" sizes="64x64">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicon_apple.png"> <!-- 180x180 -->
+<link rel="manifest" href="/manifest.webmanifest">
 ```
 
 ## Usage
