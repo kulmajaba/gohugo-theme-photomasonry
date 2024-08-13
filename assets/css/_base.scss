@@ -1,7 +1,5 @@
 * {
   box-sizing: border-box;
-  scrollbar-color: var(--color-bg-scrollbar-thumb) var(--color-bg-scrollbar);
-  scrollbar-width: thin;
 }
 
 /* Escaping selector because sass is dumb */
@@ -23,6 +21,14 @@
 
   *::-webkit-scrollbar-track-piece:end {
     background: transparent;
+  }
+}
+
+/* Escaping selector because sass is dumb */
+@supports not #{"selector(::-webkit-scrollbar)"} {
+  * {
+    scrollbar-color: var(--color-bg-scrollbar-thumb) var(--color-bg-scrollbar);
+    scrollbar-width: thin;
   }
 }
 
