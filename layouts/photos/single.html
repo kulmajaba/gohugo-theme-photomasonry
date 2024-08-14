@@ -12,15 +12,34 @@
         <div class="Figure-imageContainer">
           {{- $watermark := resources.Get .Site.Params.watermark -}}
           {{- $baseFileName := .File.BaseFileName -}}
-          {{- $imageFileName := print $baseFileName ".jpg" -}}
-          {{- with .CurrentSection.Resources.Get $imageFileName -}}
-            {{- $image := .Fit "3840x2160" -}}
-            {{- with $watermark -}}
-              {{- $image = images.Filter (images.Overlay $watermark (sub $image.Width $watermark.Width 32) (sub $image.Height $watermark.Height 32)) $image  -}}
+          {{- $imageFileNamePattern := print $baseFileName ".{jpg,jpeg,webp,png,tif,tiff}" -}}
+          {{- with .CurrentSection.Resources.GetMatch $imageFileNamePattern -}}
+            {{- $aspectRatio := div (float .Width) .Height -}}
+            {{- $resizedWidth := 0 -}}
+            {{- $resizedHeight := 0 -}}
+            {{- if ge $aspectRatio (div 3840.0 2160) -}}
+              {{- $resizedWidth = math.Min 3840 .Width -}}
+              {{- $resizedHeight = math.Round (div $resizedWidth $aspectRatio) -}}
+            {{- else -}}
+              {{- $resizedHeight = math.Min 2160 .Height -}}
+              {{- $resizedWidth = math.Round (mul $resizedHeight $aspectRatio) }}
             {{- end -}}
-            <img class="Figure-img" src="{{ $image.RelPermalink }}" alt="{{ $image.Title }}" style="--image-width:{{ $image.Width }};--image-height:{{ $image.Height }};">
+
+            {{- $filters := "" -}}
+            {{- with $watermark -}}
+              {{- $filters = slice (images.Process "fit 3840x2160 q100") (images.Overlay . (sub $resizedWidth .Width 32) (sub $resizedHeight .Height 32)) (images.Process "q60 jpg") -}}
+            {{- else -}}
+              {{- $filters = slice (images.Process "fit 3840x2160 q60 jpg") -}}
+            {{- end -}}
+
+            {{- $image := images.Filter $filters . -}}
+            <img
+              class="Figure-img"
+              src="{{ $image.RelPermalink }}"
+              style="--image-width:{{ $image.Width }};--image-height:{{ $image.Height }};"
+              {{- with .Params.alt -}}{{ printf " alt=%s" . | htmlEscape | safeHTMLAttr }}{{- end -}}>
           {{- else -}}
-            {{- errorf "Resource not found: %s" $imageFileName -}}
+            {{- errorf "Resource not found: %s" $imageFileNamePattern -}}
           {{- end -}}
         </div>
         <div id="captionContainer" class="Figure-captionContainer">

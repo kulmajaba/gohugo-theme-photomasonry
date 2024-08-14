@@ -16,7 +16,7 @@
       {{- with .RegularPages.ByDate -}}
         {{- with index . 0 -}}
           {{- $baseFileName := .File.BaseFileName -}}
-          {{- $coverFileName = print $baseFileName ".jpg" -}}
+          {{- $coverFileName = print $baseFileName ".{jpg,jpeg,webp,png,tif,tiff}" -}}
           {{- if eq $coverFileName "" -}}
             {{- errorf "Cover not found for section: %s" $relPermalink -}}
           {{- end -}}
@@ -26,7 +26,7 @@
   {{- end -}}
 {{- else -}}
   {{- $baseFileName := .File.BaseFileName -}}
-  {{- $coverFileName = print $baseFileName ".jpg" -}}
+  {{- $coverFileName = print $baseFileName ".{jpg,jpeg,webp,png,tif,tiff}" -}}
   {{- if eq $coverFileName "" -}}
     {{- errorf "Cover not found for single image: %s" $relPermalink -}}
   {{- end -}}

@@ -1,11 +1,11 @@
 {{- $fileName := .fileName -}}
 
-{{- $resource := .context.CurrentSection.Resources.Get $fileName -}}
+{{- $resource := .context.CurrentSection.Resources.GetMatch $fileName -}}
 
 {{- with .context -}}
   {{- if not $resource -}}
-    {{- range .RegularPages.ByDate -}}
-      {{- with .Resources.Get $fileName -}}
+    {{- range .RegularPages -}}
+      {{- with .Resources.GetMatch $fileName -}}
         {{- $resource = . -}}
       {{- end -}}
     {{- end -}}
@@ -13,7 +13,7 @@
 
   {{- if not $resource -}}
     {{- range .Sections -}}
-      {{- with .Resources.Get $fileName -}}
+      {{- with .Resources.GetMatch $fileName -}}
         {{- $resource = . -}}
       {{- end -}}
       {{- if $resource -}}

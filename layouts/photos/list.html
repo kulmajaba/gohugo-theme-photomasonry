@@ -1,6 +1,6 @@
 {{- $context := . -}}
 {{- range .Resources.ByType "image" -}}
-  {{- $baseFileName := strings.TrimSuffix ".jpg" .Name -}}
+  {{- $baseFileName := strings.ReplaceRE `(?i)(\.(?:jpg|jpeg|webp|png|tif|tiff)$)` "" .Name -}}
   {{- if $context.GetPage $baseFileName -}}
     {{- continue -}}
   {{- else -}}

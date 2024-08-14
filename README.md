@@ -114,8 +114,10 @@ my-website/
 
 ### Photos
 
+#### Gallery structure
+
 The theme is set up with the assumption that `content/photos` will be your photo gallery folder.
-You can nest more sections inside it which will become their own galleries.
+You can nest more sections inside it which will become their own sub-galleries.
 
 ```
 my-website/
@@ -124,14 +126,17 @@ my-website/
     │   ├── _index.md
     │   ├── photo-1.jpg
     │   ├── photo-1.md
+    |   ├── photo-2.jpg
+    │   ├── photo-2.md
     │   └── sub-gallery/
-    │       ├── photo-2.jpg
-    │       └── photo-2.md
+    |       ├── _index.jpg
+    │       ├── photo-3.jpg
+    │       └── photo-3.md
     └── posts/
         └── hello-world.md
 ```
 
-The gallery is dependent on file pairs of an image file and a markdown file with the same filename:
+The gallery consists of the `_index.md` file that defines it as a section for Hugo, and pairs of an image file and a markdown file with the same filename:
 
 ```
 photos/
@@ -140,8 +145,26 @@ photos/
   └── photo-1.md
 ```
 
+#### Cover images
+
+By default, the cover image of a gallery will be the first image by date (defined in the front matter of the related page or section).
+You can set a cover image from any images inside the gallery or its sub-galleries in the front matter:
+
+`content/photos/sub-gallery/_index.md`:
+```yaml
+---
+title: "My gallery"
+params:
+  cover: "photo-1.jpg"
+---
+```
+
+#### Image processing
+
 For pages in `content/photos` the images are automatically resized to max. 3840x2160 and watermarked if you have set a watermark.
-To save space in your builds you should disable publishing the original image files for every section in `content/photos`:
+
+To save space in your builds you should disable publishing the original image files for every section in `content/photos`.
+This is done by setting `publishResources: false` in all of your `_index.md` file front matters inside the photos folder:
 
 `content/photos/_index.md`:
 ```yaml
