@@ -1,0 +1,28 @@
+{
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-idiomatic-order"],
+  "plugins": ["stylelint-selector-bem-pattern"],
+  "rules": {
+    "custom-property-empty-line-before": null,
+    "custom-property-pattern": null,
+    "alpha-value-notation": "number",
+    "color-hex-length": "long",
+    "media-feature-range-notation": "prefix",
+    "selector-class-pattern": null,
+    "plugin/selector-bem-pattern": {
+      "preset": "suit",
+      "componentSelectors": {
+        "initial": "^\\.{componentName}(?:-[a-z]+[A-z]*)?(?:--[a-z]+[A-z]*)?(?:\\.is-[a-z]+[A-z]*)?(?:\\[.+\\])?$"
+      },
+      "utilitySelectors": "^\\.u-[a-z]+[A-z]*$"
+    },
+    "import-notation": "string",
+    "scss/load-no-partial-leading-underscore": null,
+    "function-name-case": null
+  },
+  "overrides": [
+    {
+      "files": ["**/*.scss"],
+      "customSyntax": "postcss-scss"
+    }
+  ]
+}

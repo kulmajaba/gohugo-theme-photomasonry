@@ -1,0 +1,18 @@
+{
+  "css.validate": false,
+  "scss.lint.emptyRules": "ignore",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.indentSize": 2,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": false,
+  "editor.detectIndentation": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": "explicit"
+  },
+  "prettier.printWidth": 120,
+  "stylelint.validate": ["css", "scss"],
+  "[scss]": {
+    "editor.formatOnSave": true
+  }
+}
