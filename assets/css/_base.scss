@@ -128,3 +128,13 @@ hr {
   width: 100%;
   border-color: var(--color-border);
 }
+
+blockquote {
+  padding: 0.25em 1em;
+  border-radius: 4px;
+  border-left: 4px solid var(--color-border);
+  background-color: var(--color-bg-card-dim);
+  color: var(--color-text-secondary);
+  margin-block: 0.5em;
+  margin-inline: 1em;
+}
