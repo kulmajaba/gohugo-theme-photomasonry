@@ -37,6 +37,14 @@ html {
   font-family: "Gothic A1", sans-serif;
   font-size: 17px;
   line-height: 1.4;
+
+  @media (prefers-color-scheme: dark) {
+    font-weight: 350;
+  }
+
+  @media (max-width: $layout-breakpoint-xs) {
+    font-size: 15px;
+  }
 }
 
 body {
@@ -73,6 +81,10 @@ h5,
 h6 {
   font-family: "Playfair Display", serif;
   font-weight: 400;
+
+  @media (prefers-color-scheme: dark) {
+    font-weight: 350;
+  }
 }
 
 h1 {
