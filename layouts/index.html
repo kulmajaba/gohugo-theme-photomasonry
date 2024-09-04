@@ -13,7 +13,16 @@
         <!-- Note that the content for index.html, as a sort of list page, will pull from content/_index.md -->
         {{- .Content -}}
       </div>
-      {{- $posts := where .Site.RegularPages.ByDate.Reverse "Section" "posts" -}}
+      {{- $allPosts := where .Site.RegularPages.ByDate.Reverse "Section" "posts" -}}
+      {{- $tempPinnedPosts := where $allPosts ".Params.pinned" "eq" true -}}
+      {{- $pinnedPosts := slice -}}
+      {{- range $tempPinnedPosts -}}
+        {{- if and .Params.pinned (or (eq .Params.pinnedUntil nil) (gt (time.AsTime .Params.pinnedUntil) now)) -}}
+          {{- $pinnedPosts = $pinnedPosts | append . -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $normalPosts := complement $pinnedPosts $allPosts  -}}
+      {{- $posts := append $normalPosts $pinnedPosts -}}
       {{- with $posts -}}
         <div class="App-postsContainer">
           <h2 class="u-responsiveHPadding">
@@ -26,7 +35,12 @@
                 <h3 class="App-postTitle u-noMargin">{{ .Title }}</h3>
                 {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
                 {{- $dateHuman := .Date | time.Format ":date_long" -}}
-                <time class="App-postTime" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+                <div class="App-postFooter">
+                  <time class="App-postTime" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+                  {{- if and .Params.pinned (or (eq .Params.pinnedUntil nil) (gt (time.AsTime .Params.pinnedUntil) now)) -}}
+                      {{- (resources.Get "svg/PushPin.svg").Content | safeHTML -}}
+                  {{- end -}}
+                </div>
               </a>
             {{- end }}
           </div>

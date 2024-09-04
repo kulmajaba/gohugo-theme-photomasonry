@@ -59,6 +59,18 @@
   text-overflow: ellipsis;
 }
 
+.App-postFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+  gap: var(--spacing-xs);
+}
+
+.App-postFooter svg {
+  fill: var(--color-icon);
+}
+
 .App-postTime {
   font-size: var(--size-body-small);
   font-weight: 500;

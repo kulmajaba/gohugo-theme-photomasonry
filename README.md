@@ -175,11 +175,35 @@ build:
 ---
 ```
 
-### Page images
+### Posts
 
-You can embed images to normal pages either with the markdown syntax or a more flexible shortcode.
+#### Pinned posts
 
-#### Markdown
+You can pin posts to the home page carousel by setting `pinned: true` in the front matter of a post:
+
+```yaml
+---
+title: "Post title"
+date: 2024-08-18
+summary: "Short summary."
+params:
+  pinned: true
+---
+```
+
+You can optionally set `pinnedUntil` to a date. The post will be pinned in Hugo builds until that date, but not after. If you set `pinnedUntil` as date without hours and minutes, the post will be unpinned starting from that date.
+
+```yaml
+params:
+  pinned: true
+  pinnedUntil: 2024-09-18
+```
+
+#### Photos
+
+You can embed images to normal pages either with the markdown syntax or a more flexible shortcode:
+
+##### 1. Markdown syntax
 
 ```md
 ![Alt text](screenshot-1.png "A title")
@@ -187,7 +211,7 @@ You can embed images to normal pages either with the markdown syntax or a more f
 
 If the title exists, the image will be rendered inside a `<figure>` element and the title will be turned into a caption.
 
-#### Shortcode
+##### 2. Shortcode
 
 ```md
 {{< image src="profile.jpg" alt="Picture of the author" title="Credit: John Doe" figure=true maxWidth="50%" />}}
