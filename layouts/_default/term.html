@@ -1,0 +1,9 @@
+{{- define "main" }}
+  <h1>{{ .Data.Singular | strings.FirstUpper }}: {{ .Title }}</h1>
+  {{ .Content -}}
+  <div class="PostList-container">
+    {{- range .Pages }}
+      {{ .Render "summary" }}
+    {{- end -}}
+  </div>
+{{ end -}}

@@ -12,3 +12,7 @@
 
 [seeAll]
   other = 'See all'
+
+[postWithCount]
+  one = '{{ . }} Post'
+  other = '{{ . }} Posts'

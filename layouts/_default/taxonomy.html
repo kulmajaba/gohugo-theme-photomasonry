@@ -1,0 +1,12 @@
+{{- define "main" }}
+  <h1>{{ .Title }}</h1>
+  {{ .Content -}}
+  <div class="Taxonomy-container">
+    {{- range .Pages.ByTitle }}
+      <a class="Taxonomy" href="{{ .RelPermalink }}">
+        <h2 class="Taxonomy-heading u-noMargin">{{ .LinkTitle }}</h2>
+        <p class="u-noMargin Taxonomy-subtitle">{{ T "postWithCount" (.Pages | len) }}</p>
+      </a>
+    {{- end -}}
+  </div>
+{{ end -}}

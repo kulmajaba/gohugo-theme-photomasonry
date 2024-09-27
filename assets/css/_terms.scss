@@ -1,0 +1,26 @@
+/** @define Terms */
+
+.Terms {
+  padding-top: var(--spacing-s);
+}
+
+.Terms-heading {
+  color: var(--color-text-secondary);
+}
+
+.Terms-content {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--spacing-s);
+}
+
+.Terms-termLink {
+  display: inline-block;
+  min-width: 80px;
+  padding: var(--spacing-xs) var(--spacing-m);
+  border-radius: var(--spacing-m);
+  background-color: var(--color-bg-link);
+  color: var(--color-text);
+  text-align: center;
+  text-decoration: none;
+}
