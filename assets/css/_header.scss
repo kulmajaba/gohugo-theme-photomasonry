@@ -148,8 +148,7 @@
   gap: 7px;
   user-select: none;
 
-  /* Escaping > because sass is dumb */
-  @media #{"(width > #{$layout-breakpoint-m})"} {
+  @media (width > #{$layout-breakpoint-m}) {
     display: none;
   }
 }
@@ -202,8 +201,7 @@
   transform-origin: 100% 0;
   transition: transform var(--timing-s) cubic-bezier(0.4, 0.1, 0.1, 0.9);
 
-  /* Escaping > because sass is dumb */
-  @media #{"(width > #{$layout-breakpoint-m})"} {
+  @media (width > #{$layout-breakpoint-m}) {
     display: none;
   }
 }

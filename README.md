@@ -14,6 +14,8 @@ A photos-first Hugo website theme with blog features
 
 ## Installation
 
+Prerequisite: The theme requires [dart-sass](https://gohugo.io/hugo-pipes/transpile-sass-to-css/#dart-sass) which you need to install separately.
+
 ### As a Hugo Module (recommended)
 
 > ⚠️ If you installed a [Hugo binary](https://gohugo.io/getting-started/installing/#binary-cross-platform), you may not have Go installed on your machine. To check if Go is installed:

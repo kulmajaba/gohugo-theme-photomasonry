@@ -2,8 +2,7 @@
   box-sizing: border-box;
 }
 
-/* Escaping selector because sass is dumb */
-@supports #{"selector(::-webkit-scrollbar)"} {
+@supports selector(::-webkit-scrollbar) {
   *::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -25,7 +24,7 @@
 }
 
 /* Escaping selector because sass is dumb */
-@supports not #{"selector(::-webkit-scrollbar)"} {
+@supports not selector(::-webkit-scrollbar) {
   * {
     scrollbar-color: var(--color-bg-scrollbar-thumb) var(--color-bg-scrollbar);
     scrollbar-width: thin;
