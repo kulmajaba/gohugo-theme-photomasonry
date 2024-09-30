@@ -55,7 +55,7 @@ Example of theme configuration in your `hugo.toml`
 
 ```toml
 ...
-theme = 'kulmajaba'
+theme = 'github.com/kulmajaba/gohugo-theme-photomasonry'
 
 [params]
   logo = 'Logo.svg'
