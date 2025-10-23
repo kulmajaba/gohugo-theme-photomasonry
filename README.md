@@ -116,6 +116,8 @@ my-website/
 
 ### Photos
 
+The photos are displayed on the home page as a continuous stream pulling from all folders and in the gallery as separate folders.
+
 #### Gallery structure
 
 The theme is set up with the assumption that `content/photos` will be your photo gallery folder.
@@ -146,6 +148,14 @@ photos/
   ├── photo-1.jpg
   └── photo-1.md
 ```
+
+The markdown files are converted to photo pages with the corresponding image displayed.
+
+#### Photo order
+
+The home page stream displays photos ordered by `publishDate`and then `date`, newest first.
+The galleries are ordered by `date`, oldest first.
+This means you can just use the `date` field if you prefer, or lift older photos to the top of the home page using `publishDate` and still keep the galleries chronologically ordered.
 
 #### Cover images
 
