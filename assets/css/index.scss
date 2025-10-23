@@ -1,18 +1,18 @@
 /* stylelint-disable at-rule-empty-line-before */
-@import "_normalize";
+@use "_normalize";
 
-@import "_variables";
-@import "_base";
-@import "_app";
-@import "_header";
-@import "_footer";
-@import "_thumbnails";
-@import "_figure";
-@import "_post";
-@import "_syntax";
-@import "_post-list";
-@import "_post-summary";
-@import "_taxonomy";
-@import "_terms";
+@use "_variables";
+@use "_base";
+@use "_app";
+@use "_header";
+@use "_footer";
+@use "_thumbnails";
+@use "_figure";
+@use "_post";
+@use "_syntax";
+@use "_post-list";
+@use "_post-summary";
+@use "_taxonomy";
+@use "_terms";
 
-@import "_utils";
+@use "_utils";
