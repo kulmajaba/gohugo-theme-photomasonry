@@ -46,7 +46,7 @@
           <div id="captionContent" class="Figure-captionContent">
             <figcaption class="Figure-caption">
               <div class="Figure-captionHeader">
-                <h1 class="u-noMargin u-matchLineHeight">{{ .Title }}</h1>
+                <h1 class="Figure-title">{{ .Title }}</h1>
                 <aside class="Figure-aside">
                   <p class="Figure-asideInfo u-noMargin">{{- .Params.location -}}</p>
                   {{- $dateHuman := .Date | time.Format "2006" }}

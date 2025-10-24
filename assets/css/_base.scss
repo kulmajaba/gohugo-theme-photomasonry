@@ -6,13 +6,13 @@
 
 @supports selector(::-webkit-scrollbar) {
   *::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: var(--width-scrollbar);
+    height: var(--width-scrollbar);
     background-color: var(--color-bg-scrollbar);
   }
 
   *::-webkit-scrollbar-thumb {
-    border-radius: 8px;
+    border-radius: var(--width-scrollbar);
     background-color: var(--color-bg-scrollbar-thumb);
   }
 
@@ -25,7 +25,6 @@
   }
 }
 
-/* Escaping selector because sass is dumb */
 @supports not selector(::-webkit-scrollbar) {
   * {
     scrollbar-color: var(--color-bg-scrollbar-thumb) var(--color-bg-scrollbar);
@@ -43,7 +42,7 @@ html {
     font-weight: 350;
   }
 
-  @media (max-width: $layout-breakpoint-xs) {
+  @media (max-width: $layout-breakpoint-xs), (max-height: $layout-breakpoint-xs) {
     font-size: 15px;
   }
 }
