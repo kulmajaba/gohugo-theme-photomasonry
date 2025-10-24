@@ -1,6 +1,62 @@
 let captionOpen = false;
 let arrowDownPressed = false;
 
+const urlBreakpoint = /\/?\?/;
+
+const isPhotoStream = (url) => {
+  const urlParams = new URLSearchParams(url);
+  const source = urlParams.get('source');
+  return source === 'photostream';
+}
+
+const replaceContent = (elementId, newValue, attribute) => {
+  const element = document.getElementById(elementId);
+  if (element) {
+    if (attribute !== undefined) {
+      element.setAttribute(attribute, newValue);
+    } else {
+      element.innerHTML = newValue;
+    }
+  } else {
+    console.warn('Could not set value for element', elementId);
+  }
+}
+
+const navigateTo = async (url) => {
+  if (document.fullscreenElement !== null) {
+    try {
+      const urlParts = url.split(urlBreakpoint);
+      const response = await fetch(`/json${urlParts[0]}/index.json${urlParts[1] ? `/?${urlParts[1]}` : ''}`);
+      const newPage = await response.json();
+      console.log(newPage);
+
+      replaceContent('image', newPage.src, 'src');
+      replaceContent('image', newPage.alt, 'alt');
+      replaceContent('title', newPage.title);
+      replaceContent('location', newPage.location);
+      replaceContent('date', newPage.date);
+      replaceContent('medium', newPage.medium);
+
+      if (isPhotoStream(url)) {
+        replaceContent('close', '/', 'href');
+        replaceContent('previous', newPage.photoStreamPrev, 'href');
+        replaceContent('next', newPage.photoStreamNext, 'href');
+      } else {
+        replaceContent('close', newPage.close, 'href');
+        replaceContent('previous', newPage.pagesPrev, 'href');
+        replaceContent('next', newPage.pagesNext, 'href');
+      }
+
+      // TODO: replace caption content
+    } catch (e) {
+      console.error(e);
+      // window.location.href = url;
+    }
+  } else {
+    window.location.href = url;
+  }
+}
+
 const scrollCaption = (open) => {
   if (open) {
     const caption = document.querySelector('#captionContent');
@@ -61,6 +117,10 @@ const init = () => {
     }
   });
 
+  document.querySelector('#fullscreen')?.addEventListener('click', () => {
+    document.querySelector('body')?.requestFullscreen();
+  });
+
   window.addEventListener('keydown', (e) => {
     let url = undefined;
 
@@ -91,7 +151,7 @@ const init = () => {
     }
     
     if (url) {
-      window.location.href = url;
+      navigateTo(url);
     }
   });
 }
