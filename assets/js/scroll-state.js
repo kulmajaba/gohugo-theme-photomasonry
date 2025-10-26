@@ -1,4 +1,4 @@
-const SCROLL_STATE_KEY = 'scrollState';
+const SCROLL_STATE_KEY = "scrollState";
 
 let sleep = false;
 
@@ -36,14 +36,14 @@ const restoreScrollState = () => {
 const init = () => {
   restoreScrollState();
 
-  document.addEventListener('scroll', handleScroll);
-  document.addEventListener('scrollend', saveScrollState);
+  document.addEventListener("scroll", handleScroll);
+  document.addEventListener("scrollend", saveScrollState);
 };
 
-if (document.readyState !== 'loading') {
+if (document.readyState !== "loading") {
   init();
 } else {
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     init();
   });
 }
