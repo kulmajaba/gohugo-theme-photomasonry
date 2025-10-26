@@ -60,7 +60,7 @@ $layout-breakpoint-l: 1200px;
   --spacing-xl: 64px;
   --spacing-xxl: 128px;
 
-  /* Sizes */
+  /* Fonts */
   --size-h1: 28px;
   --size-h2: 24px;
   --size-h3: 18px;
@@ -71,14 +71,24 @@ $layout-breakpoint-l: 1200px;
   --size-body-small: 14px;
 
   @media (max-width: $layout-breakpoint-xs), (max-height: $layout-breakpoint-xs) {
-    --size-h1: 24px;
+    --size-h1: 22px;
     --size-h2: 20px;
     --size-h3: 18px;
     --size-h4: 17px;
     --size-h5: 16px;
     --size-h6: 15px;
+    --size-body: 15px;
   }
 
+  --weight-medium: 500;
+  --weight-normal: 400;
+
+  @media (prefers-color-scheme: dark) {
+    --weight-medium: 450;
+    --weight-normal: 350;
+  }
+
+  /* Sizes */
   --responsive-padding-horizontal: Max(Min(calc((100% - 480px) / 5), var(--spacing-l)), var(--spacing-s));
   --responsive-padding-horizontal-zero: Max(Min(calc((100% - 480px) / 5), var(--spacing-l)), 0px);
 

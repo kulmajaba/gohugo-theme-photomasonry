@@ -35,16 +35,9 @@
 html {
   height: 100%;
   font-family: "Gothic A1", sans-serif;
-  font-size: 17px;
+  font-size: var(--size-body);
+  font-weight: var(--weight-normal);
   line-height: 1.4;
-
-  @media (prefers-color-scheme: dark) {
-    font-weight: 350;
-  }
-
-  @media (max-width: $layout-breakpoint-xs), (max-height: $layout-breakpoint-xs) {
-    font-size: 15px;
-  }
 }
 
 body {
@@ -84,11 +77,8 @@ h4,
 h5,
 h6 {
   font-family: "Playfair Display", serif;
-  font-weight: 400;
-
-  @media (prefers-color-scheme: dark) {
-    font-weight: 350;
-  }
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.02em;
 }
 
 h1 {
@@ -131,7 +121,7 @@ table {
 th {
   padding: 0.2em 0.5em;
   border: 1px solid var(--color-border-table);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   text-align: left;
 }
 
