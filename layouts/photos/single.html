@@ -36,7 +36,9 @@
                   <p id="medium" class="Figure-asideInfo u-noMargin">{{ .Params.medium }}</p>
                 </aside>
               </div>
-              {{- .Content -}}
+              <div id="captionBody">
+                {{- .Content -}}
+              </div>
             </figcaption>
             {{- $moreIcon := resources.Get "svg/CaretDown.svg" }}
             <button id="toggleCaption" type="button" class="Figure-captionToggle">{{ $moreIcon.Content | safeHTML }}</button>

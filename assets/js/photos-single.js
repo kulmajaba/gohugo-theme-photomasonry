@@ -3,23 +3,41 @@ let arrowDownPressed = false;
 
 const urlBreakpoint = /\/?\?/;
 
-const isPhotoStream = (url) => {
-  const urlParams = new URLSearchParams(url);
+const isPhotoStream = (searchUrl) => {
+  const urlParams = new URLSearchParams(searchUrl);
   const source = urlParams.get('source');
   return source === 'photostream';
-}
+};
 
 const replaceContent = (elementId, newValue, attribute) => {
   const element = document.getElementById(elementId);
   if (element) {
     if (attribute !== undefined) {
-      element.setAttribute(attribute, newValue);
+      if (newValue !== undefined) {
+        element.setAttribute(attribute, newValue);
+      } else {
+        element.removeAttribute(attribute);
+      }
     } else {
       element.innerHTML = newValue;
     }
   } else {
     console.warn('Could not set value for element', elementId);
   }
+};
+
+const setHref = (elementId, newValue) => {
+  replaceContent(elementId, newValue !== '' ? newValue : undefined, 'href');
+};
+
+const updateButtonStates = () => {
+  const close = document.getElementById('close');
+  const prev = document.getElementById('previous');
+  const next = document.getElementById('next');
+
+  close.href ? close.classList.remove('is-disabled') : close.classList.add('is-disabled');
+  prev.href ? prev.classList.remove('is-disabled') : prev.classList.add('is-disabled');
+  next.href ? next.classList.remove('is-disabled') : next.classList.add('is-disabled');
 }
 
 const navigateTo = async (url) => {
@@ -36,21 +54,24 @@ const navigateTo = async (url) => {
       replaceContent('location', newPage.location);
       replaceContent('date', newPage.date);
       replaceContent('medium', newPage.medium);
+      replaceContent('captionBody', newPage.content);
 
-      if (isPhotoStream(url)) {
-        replaceContent('close', '/', 'href');
-        replaceContent('previous', newPage.photoStreamPrev, 'href');
-        replaceContent('next', newPage.photoStreamNext, 'href');
+      if (isPhotoStream(urlParts[1] ?? urlParts[0])) {
+        setHref('close', '/');
+        setHref('previous', newPage.photoStreamPrev);
+        setHref('next', newPage.photoStreamNext);
       } else {
-        replaceContent('close', newPage.close, 'href');
-        replaceContent('previous', newPage.pagesPrev, 'href');
-        replaceContent('next', newPage.pagesNext, 'href');
+        setHref('close', newPage.close);
+        setHref('previous', newPage.pagesPrev);
+        setHref('next', newPage.pagesNext);
       }
 
-      // TODO: replace caption content
+      updateButtonStates();
+
+      history.pushState(undefined, '', url);
     } catch (e) {
       console.error(e);
-      // window.location.href = url;
+      window.location.href = url;
     }
   } else {
     window.location.href = url;
@@ -59,13 +80,13 @@ const navigateTo = async (url) => {
 
 const scrollCaption = (open) => {
   if (open) {
-    const caption = document.querySelector('#captionContent');
+    const caption = document.getElementById('captionContent');
     caption?.scrollIntoView({
       behavior: 'smooth',
     });
     caption && (captionOpen = true);
   } else {
-    const container = document.querySelector('#captionContainer');
+    const container = document.getElementById('captionContainer');
     container?.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -75,41 +96,21 @@ const scrollCaption = (open) => {
 };
 
 const init = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const source = urlParams.get('source');
+  if (isPhotoStream(window.location.search)) {
+    setHref('close', document.getElementById('close')?.dataset.photoStreamHref)
+    setHref('previous', document.getElementById('previous')?.dataset.photoStreamHref)
+    setHref('next', document.getElementById('next')?.dataset.photoStreamHref)
 
-  if (source === 'photostream') {
-    const close = document.querySelector('#close');
-    const prev = document.querySelector('#previous');
-    const next = document.querySelector('#next');
-
-    if (close) {
-      close.setAttribute('href', close.dataset.photoStreamHref ?? '');
-      close.dataset.photoStreamHref ? close.classList.remove('is-disabled') : close.classList.add('is-disabled');
-    }
-
-    if (prev) {
-      prev.setAttribute('href', prev.dataset.photoStreamHref ?? '');
-      prev.dataset.photoStreamHref ? prev.classList.remove('is-disabled') : prev.classList.add('is-disabled');
-    }
-
-    if (next) {
-      next.setAttribute('href', next.dataset.photoStreamHref ?? '');
-      next.dataset.photoStreamHref ? next.classList.remove('is-disabled') : next.classList.add('is-disabled');
-    }
+    updateButtonStates();
   }
 
-  const captionButton = document.querySelector('#toggleCaption');
+  document.getElementById('toggleCaption').addEventListener('click', () => {
+    scrollCaption(!captionOpen);
+  });
 
-  if (captionButton) {
-    captionButton.addEventListener('click', () => {
-      scrollCaption(!captionOpen);
-    });
-  }
-
-  document.querySelector('#captionContainer')?.addEventListener("scrollend", () => {
-    const container = document.querySelector('#captionContainer');
-    const scrollPos = container.scrollTop;
+  const captionContainer = document.getElementById('captionContainer');
+  captionContainer?.addEventListener("scrollend", () => {
+    const scrollPos = captionContainer.scrollTop;
     if (scrollPos > 0) {
       !captionOpen && (captionOpen = true);
     } else {
@@ -117,33 +118,35 @@ const init = () => {
     }
   });
 
-  document.querySelector('#fullscreen')?.addEventListener('click', () => {
+  document.getElementById('fullscreen')?.addEventListener('click', () => {
     document.querySelector('body')?.requestFullscreen();
   });
 
   window.addEventListener('keydown', (e) => {
     let url = undefined;
 
-    const caption = document.querySelector('#captionContent');
+    const caption = document.getElementById('captionContent');
   
     switch (e.key) {
       case 'Escape':
         e.preventDefault();
-        url = document.querySelector('#close')?.getAttribute('href');
+        url = document.getElementById('close')?.getAttribute('href');
         break;
       case 'ArrowRight':
-        url = document.querySelector('#next')?.getAttribute('href');
+        url = document.getElementById('next')?.getAttribute('href');
         break;
       case 'ArrowLeft':
-        url = document.querySelector('#previous')?.getAttribute('href');
+        url = document.getElementById('previous')?.getAttribute('href');
         break;
       case 'ArrowDown':
+        e.preventDefault();
         if (!arrowDownPressed || (caption && caption.scrollHeight < document.documentElement.clientHeight)) {
           arrowDownPressed = true;
           scrollCaption(!captionOpen);
         }
         break;
       case 'ArrowUp':
+        e.preventDefault();
         if (caption && caption.scrollHeight < document.documentElement.clientHeight) {
           scrollCaption(false);
         }
