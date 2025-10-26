@@ -10,13 +10,13 @@ const saveScrollState = () => {
   }
   state[window.location.pathname] = window.scrollY;
   sessionStorage.setItem(SCROLL_STATE_KEY, JSON.stringify(state));
-}
+};
 
 const handleScroll = () => {
   if (!sleep) {
     saveScrollState();
     sleep = true;
-    setTimeout(() => sleep = false, 300);
+    setTimeout(() => (sleep = false), 300);
   }
 };
 
@@ -27,23 +27,23 @@ const restoreScrollState = () => {
     const pageScrollState = state[window.location.pathname];
     if (pageScrollState) {
       window.scrollTo({
-        top: pageScrollState
-      })
+        top: pageScrollState,
+      });
     }
   }
-}
+};
 
 const init = () => {
   restoreScrollState();
 
-  document.addEventListener('scroll', handleScroll);
-  document.addEventListener('scrollend', saveScrollState);
+  document.addEventListener("scroll", handleScroll);
+  document.addEventListener("scrollend", saveScrollState);
 };
 
-if (document.readyState !== 'loading') {
-  init()
+if (document.readyState !== "loading") {
+  init();
 } else {
-  document.addEventListener('DOMContentLoaded', () => {
-      init();
+  document.addEventListener("DOMContentLoaded", () => {
+    init();
   });
 }

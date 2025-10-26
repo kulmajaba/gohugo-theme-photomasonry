@@ -53,6 +53,10 @@ body {
   color: var(--color-text);
 }
 
+body::backdrop {
+  background: var(--color-bg);
+}
+
 p {
   margin-block: 0.5em;
 }

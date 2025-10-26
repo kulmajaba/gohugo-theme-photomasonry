@@ -10,30 +10,12 @@
       {{- partial "photos/control-layer" . -}}
       <figure class="Figure">
         <div class="Figure-imageContainer">
-          {{- $watermark := resources.Get .Site.Params.watermark -}}
           {{- $baseFileName := .File.BaseFileName -}}
           {{- $imageFileNamePattern := print $baseFileName ".{jpg,jpeg,webp,png,tif,tiff}" -}}
           {{- with .CurrentSection.Resources.GetMatch $imageFileNamePattern -}}
-            {{- $aspectRatio := div (float .Width) .Height -}}
-            {{- $resizedWidth := 0 -}}
-            {{- $resizedHeight := 0 -}}
-            {{- if ge $aspectRatio (div 3840.0 2160) -}}
-              {{- $resizedWidth = math.Min 3840 .Width -}}
-              {{- $resizedHeight = math.Round (div $resizedWidth $aspectRatio) -}}
-            {{- else -}}
-              {{- $resizedHeight = math.Min 2160 .Height -}}
-              {{- $resizedWidth = math.Round (mul $resizedHeight $aspectRatio) }}
-            {{- end -}}
-
-            {{- $filters := "" -}}
-            {{- with $watermark -}}
-              {{- $filters = slice (images.Process "fit 3840x2160 q100") (images.Overlay . (sub $resizedWidth .Width 32) (sub $resizedHeight .Height 32)) (images.Process "q60 jpg") -}}
-            {{- else -}}
-              {{- $filters = slice (images.Process "fit 3840x2160 q60 jpg") -}}
-            {{- end -}}
-
-            {{- $image := images.Filter $filters . -}}
+            {{- $image := partial "photos/process-photo.html" . -}}
             <img
+              id="image"
               class="Figure-img"
               src="{{ $image.RelPermalink }}"
               style="--image-width:{{ $image.Width }};--image-height:{{ $image.Height }};"
@@ -44,17 +26,19 @@
         </div>
         <div id="captionContainer" class="Figure-captionContainer">
           <div id="captionContent" class="Figure-captionContent">
-            <figcaption class="Figure-caption">
+            <figcaption id="caption" class="Figure-caption">
               <div class="Figure-captionHeader">
-                <h1 class="Figure-title">{{ .Title }}</h1>
+                <h1 id="title" class="Figure-title">{{ .Title }}</h1>
                 <aside class="Figure-aside">
-                  <p class="Figure-asideInfo u-noMargin">{{- .Params.location -}}</p>
+                  <p id="location" class="Figure-asideInfo u-noMargin">{{- .Params.location -}}</p>
                   {{- $dateHuman := .Date | time.Format "2006" }}
-                  <time class="Figure-asideInfo" datetime="{{ $dateHuman }}">{{ $dateHuman }}</time>
-                  <p class="Figure-asideInfo u-noMargin">{{ .Params.medium }}</p>
+                  <time id="date" class="Figure-asideInfo" datetime="{{ $dateHuman }}">{{ $dateHuman }}</time>
+                  <p id="medium" class="Figure-asideInfo u-noMargin">{{ .Params.medium }}</p>
                 </aside>
               </div>
-              {{- .Content -}}
+              <div id="captionBody">
+                {{- .Content -}}
+              </div>
             </figcaption>
             {{- $moreIcon := resources.Get "svg/CaretDown.svg" }}
             <button id="toggleCaption" type="button" class="Figure-captionToggle">{{ $moreIcon.Content | safeHTML }}</button>

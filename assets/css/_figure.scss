@@ -90,6 +90,15 @@
   }
 }
 
+.Figure-fullscreen {
+  top: var(--Figure-control-offset-y);
+  left: var(--Figure-control-offset-x);
+  border: none;
+  background: none;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
 .Figure-close {
   top: var(--Figure-control-offset-y);
   right: calc(var(--Figure-control-offset-x) + var(--width-scrollbar));

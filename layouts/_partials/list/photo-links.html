@@ -1,0 +1,21 @@
+{{- $photoStream := partial "list/photostream" . -}}
+{{- $photoStreamNext := "" -}}
+{{- $photoStreamPrev := "" -}}
+{{- with $photoStream.Next . -}}
+  {{- $photoStreamPrev = printf "%s?source=photostream" .RelPermalink -}}
+{{- end -}}
+{{- with $photoStream.Prev . -}}
+  {{- $photoStreamNext = printf "%s?source=photostream" .RelPermalink -}}
+{{- end -}}
+
+{{- $pages := partial "list/gallery-pages" .Parent -}}
+{{- $pagesNext := "" -}}
+{{- $pagesPrev := "" -}}
+{{- with $pages.Next . -}}
+  {{- $pagesPrev = .RelPermalink -}}
+{{- end -}}
+{{- with $pages.Prev . -}}
+  {{- $pagesNext = .RelPermalink -}}
+{{- end -}}
+
+{{- return dict "photoStreamPrev" $photoStreamPrev "photoStreamNext" $photoStreamNext "pagesPrev" $pagesPrev "pagesNext" $pagesNext -}}
