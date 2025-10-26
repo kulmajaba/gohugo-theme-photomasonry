@@ -1,0 +1,6 @@
+[outputs]
+  page = ['html', 'json']
+
+[outputFormats]
+  [outputFormats.json]
+    path = 'json'
