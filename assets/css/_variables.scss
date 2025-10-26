@@ -23,9 +23,9 @@ $layout-breakpoint-l: 1200px;
   --color-border: rgb(28 28 28 / 0.2);
   --color-border-table: rgb(28 28 28 / 0.1);
   --color-logo: rgb(28 28 28);
-  --color-icon: rgb(28 28 28 / 0.4);
-  --color-icon-hover: rgb(28 28 28 / 0.75);
-  --color-icon-drop-shadow: rgb(255 255 255 / 0.5);
+  --color-icon: rgb(28 28 28);
+  --color-icon-drop-shadow: rgb(255 255 255);
+  --color-menu-drop-shadow: rgb(0 0 0 / 0.2);
 
   @media (prefers-color-scheme: dark) {
     --color-text: rgb(246 246 243);
@@ -42,10 +42,14 @@ $layout-breakpoint-l: 1200px;
     --color-border: rgb(246 246 243 / 0.2);
     --color-border-table: rgb(246 246 243 / 0.1);
     --color-logo: rgb(255 255 255);
-    --color-icon: rgb(255 255 255 / 0.4);
-    --color-icon-hover: rgb(255 255 255 / 0.75);
-    --color-icon-drop-shadow: rgb(0 0 0 / 0.5);
+    --color-icon: rgb(255 255 255);
+    --color-icon-drop-shadow: rgb(0 0 0);
+    --color-menu-drop-shadow: rgb(0 0 0 / 0.4);
   }
+
+  /* Opacities */
+  --opacity-icon: 0.5;
+  --opacity-icon-hover: 0.75;
 
   /* Spacing */
   --spacing-xxs: 4px;
