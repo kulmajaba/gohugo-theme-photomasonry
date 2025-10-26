@@ -1,4 +1,4 @@
-const SCROLL_STATE_KEY = "scrollState";
+const SCROLL_STATE_KEY = 'scrollState';
 
 let sleep = false;
 
@@ -10,13 +10,13 @@ const saveScrollState = () => {
   }
   state[window.location.pathname] = window.scrollY;
   sessionStorage.setItem(SCROLL_STATE_KEY, JSON.stringify(state));
-}
+};
 
 const handleScroll = () => {
   if (!sleep) {
     saveScrollState();
     sleep = true;
-    setTimeout(() => sleep = false, 300);
+    setTimeout(() => (sleep = false), 300);
   }
 };
 
@@ -27,11 +27,11 @@ const restoreScrollState = () => {
     const pageScrollState = state[window.location.pathname];
     if (pageScrollState) {
       window.scrollTo({
-        top: pageScrollState
-      })
+        top: pageScrollState,
+      });
     }
   }
-}
+};
 
 const init = () => {
   restoreScrollState();
@@ -41,9 +41,9 @@ const init = () => {
 };
 
 if (document.readyState !== 'loading') {
-  init()
+  init();
 } else {
   document.addEventListener('DOMContentLoaded', () => {
-      init();
+    init();
   });
 }
