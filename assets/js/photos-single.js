@@ -50,7 +50,6 @@ const navigateTo = async (url) => {
       const urlParts = url.split(urlBreakpoint);
       const response = await fetch(`/json${urlParts[0]}/index.json${urlParts[1] ? `/?${urlParts[1]}` : ''}`);
       const newPage = await response.json();
-      console.log(newPage);
 
       replaceContent('image', newPage.style, 'style');
       replaceContent('image', newPage.src, 'src');
