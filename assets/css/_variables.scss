@@ -26,6 +26,13 @@ $layout-breakpoint-l: 1200px;
   --color-icon: rgb(28 28 28);
   --color-icon-drop-shadow: rgb(255 255 255);
   --color-menu-drop-shadow: rgb(0 0 0 / 0.2);
+  --gradient-loading: linear-gradient(
+    to right,
+    rgb(255 255 255) 40%,
+    rgb(240 240 240) 45%,
+    rgb(240 240 240) 55%,
+    rgb(255 255 255) 60%
+  );
 
   @media (prefers-color-scheme: dark) {
     --color-text: rgb(246 246 243);
@@ -45,6 +52,13 @@ $layout-breakpoint-l: 1200px;
     --color-icon: rgb(255 255 255);
     --color-icon-drop-shadow: rgb(0 0 0);
     --color-menu-drop-shadow: rgb(0 0 0 / 0.4);
+    --gradient-loading: linear-gradient(
+      to right,
+      rgb(36 36 36) 40%,
+      rgb(42 42 42) 45%,
+      rgb(42 42 42) 55%,
+      rgb(36 36 36) 60%
+    );
   }
 
   /* Opacities */

@@ -51,7 +51,11 @@ const navigateTo = async (url) => {
       const response = await fetch(`/json${urlParts[0]}/index.json${urlParts[1] ? `/?${urlParts[1]}` : ""}`);
       const newPage = await response.json();
 
-      replaceContent("image", newPage.style, "style");
+      replaceContent("imageContainer", newPage.style, "style");
+
+      const loadingIndicator = document.getElementById("loadingIndicator");
+      loadingIndicator.classList.add("is-visible");
+
       replaceContent("image", newPage.src, "src");
       replaceContent("image", newPage.alt, "alt");
       replaceContent("title", newPage.title);
@@ -113,6 +117,19 @@ const init = () => {
     updateButtonStates();
   }
 
+  const image = document.getElementById("image");
+  const loadingIndicator = document.getElementById("loadingIndicator");
+  if (image && loadingIndicator) {
+    image.addEventListener("load", () => {
+      console.log("ses");
+      loadingIndicator.classList.remove("is-visible");
+    });
+
+    if (!image.complete) {
+      loadingIndicator.classList.add("is-visible");
+    }
+  }
+
   document.getElementById("toggleCaption").addEventListener("click", () => {
     scrollCaption(!captionOpen);
   });
@@ -121,14 +138,12 @@ const init = () => {
     if (document.fullscreenElement === null) {
       try {
         await document.querySelector("body")?.requestFullscreen();
-        document.querySelector("#fullscreen > svg > path")?.setAttribute("d", cornersInPath);
       } catch (e) {
         console.warn(e);
       }
     } else {
       try {
         await document.exitFullscreen();
-        document.querySelector("#fullscreen > svg > path")?.setAttribute("d", cornersOutPath);
       } catch (e) {
         console.warn(e);
       }
@@ -146,6 +161,14 @@ const init = () => {
     if (document.fullscreenElement !== null) {
       e.preventDefault();
       navigateTo(next?.getAttribute("href"));
+    }
+  });
+
+  document.addEventListener("fullscreenchange", () => {
+    if (document.fullscreenElement !== null) {
+      document.querySelector("#fullscreen > svg > path")?.setAttribute("d", cornersInPath);
+    } else {
+      document.querySelector("#fullscreen > svg > path")?.setAttribute("d", cornersOutPath);
     }
   });
 

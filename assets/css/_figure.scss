@@ -121,12 +121,44 @@
 }
 
 .Figure-imageContainer {
+  --Figure-imageContainer-aspect-ratio: calc(var(--image-width) / var(--image-height));
+  --Figure-imageContainer-width: min(
+    100%,
+    calc(var(--Figure-img-max-height) * var(--Figure-imageContainer-aspect-ratio))
+  );
+
   position: fixed;
   display: flex;
   width: 100%;
   height: var(--Figure-img-max-height);
   align-items: center;
   justify-content: center;
+}
+
+.Figure-loading {
+  position: absolute;
+  display: none;
+  width: var(--Figure-imageContainer-width);
+  height: auto;
+  max-height: var(--Figure-img-max-height);
+  animation: gradient 2s ease infinite;
+  aspect-ratio: var(--Figure-imageContainer-aspect-ratio);
+  background: var(--gradient-loading);
+  background-size: 400% 100%;
+}
+
+.Figure-loading.is-visible {
+  display: block;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .Figure-img {
@@ -140,10 +172,10 @@
   The difference between the two is the offset needed to allow the image to occupy the maximum height and preferably center vertically
   The result is then clamped between 0 and the height of the title bar, to at max offset the image will be at the top of the viewport
   */
-  width: 100%;
+  width: var(--Figure-imageContainer-width);
   height: auto;
   max-height: var(--Figure-img-max-height);
-  aspect-ratio: var(--image-width) / var(--image-height);
+  aspect-ratio: var(--Figure-imageContainer-aspect-ratio);
   object-fit: contain;
 }
 

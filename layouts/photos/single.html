@@ -9,21 +9,21 @@
     <main class="Figure-variables">
       {{- partial "photos/control-layer" . -}}
       <figure class="Figure">
-        <div class="Figure-imageContainer">
-          {{- $baseFileName := .File.BaseFileName -}}
-          {{- $imageFileNamePattern := print $baseFileName ".{jpg,jpeg,webp,png,tif,tiff}" -}}
-          {{- with .CurrentSection.Resources.GetMatch $imageFileNamePattern -}}
-            {{- $image := partial "photos/process-photo.html" . -}}
+        {{- $baseFileName := .File.BaseFileName -}}
+        {{- $imageFileNamePattern := print $baseFileName ".{jpg,jpeg,webp,png,tif,tiff}" -}}
+        {{- with .CurrentSection.Resources.GetMatch $imageFileNamePattern -}}
+          {{- $image := partial "photos/process-photo.html" . -}}
+          <div id="imageContainer" class="Figure-imageContainer" style="--image-width:{{ $image.Width }};--image-height:{{ $image.Height }};">
+            <div id="loadingIndicator" class="Figure-loading"></div>
             <img
               id="image"
               class="Figure-img"
               src="{{ $image.RelPermalink }}"
-              style="--image-width:{{ $image.Width }};--image-height:{{ $image.Height }};"
               {{- with .Params.alt -}}{{ printf " alt=%s" . | htmlEscape | safeHTMLAttr }}{{- end -}}>
-          {{- else -}}
-            {{- errorf "Resource not found: %s" $imageFileNamePattern -}}
-          {{- end -}}
-        </div>
+          </div>
+        {{- else -}}
+          {{- errorf "Resource not found: %s" $imageFileNamePattern -}}
+        {{- end -}}
         <div id="captionContainer" class="Figure-captionContainer">
           <div id="captionContent" class="Figure-captionContent">
             <figcaption id="caption" class="Figure-caption">
