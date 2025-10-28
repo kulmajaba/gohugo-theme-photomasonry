@@ -116,7 +116,7 @@ $layout-breakpoint-l: 1200px;
   }
 
   @supports not selector(::-webkit-scrollbar) {
-    --width-scrollbar: 0;
+    --width-scrollbar: 0px;
   }
 
   /* Timing */
