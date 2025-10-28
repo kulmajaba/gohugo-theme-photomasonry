@@ -109,15 +109,6 @@ $layout-breakpoint-l: 1200px;
   /* Width */
   --max-width-content: calc(1200px + var(--spacing-l) * 2);
   --max-width-text-content: calc(960px + var(--spacing-l) * 2);
-  --width-scrollbar: 8px;
-
-  @media (max-width: $layout-breakpoint-xs), (max-height: $layout-breakpoint-xs) {
-    --width-scrollbar: 4px;
-  }
-
-  @supports not selector(::-webkit-scrollbar) {
-    --width-scrollbar: 0px;
-  }
 
   /* Timing */
   --timing-s: 0.2s;

@@ -104,7 +104,7 @@
 
 .Figure-close {
   top: var(--Figure-control-offset-y);
-  right: calc(var(--Figure-control-offset-x) + var(--width-scrollbar));
+  right: var(--Figure-control-offset-x);
   transform: translate(50%, -50%);
 }
 
@@ -115,7 +115,7 @@
 }
 
 .Figure-next {
-  right: calc(var(--Figure-control-offset-x) + var(--width-scrollbar));
+  right: var(--Figure-control-offset-x);
   bottom: var(--Figure-control-offset-y);
   transform: translate(50%, 50%);
 }
