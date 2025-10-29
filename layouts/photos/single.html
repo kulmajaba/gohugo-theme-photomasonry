@@ -5,8 +5,8 @@
     {{- partial "head-custom" . -}}
     {{- partialCached "head/js-photos-single.html" . -}}
   </head>
-  <body class="Figure-body">
-    <main class="Figure-container Figure-variables">
+  <body>
+    <main class="Figure-variables">
       {{- partial "photos/control-layer" . -}}
       <figure class="Figure">
         {{- $baseFileName := .File.BaseFileName -}}

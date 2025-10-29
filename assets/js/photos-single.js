@@ -94,12 +94,14 @@ const scrollCaption = (open) => {
       caption.scrollIntoView({
         behavior: "smooth",
       });
+      captionOpen = true;
     }
   } else {
     document.documentElement.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+    captionOpen = false;
   }
 };
 
@@ -173,13 +175,14 @@ const init = () => {
 
   document.addEventListener("scrollend", () => {
     const scrollPos = document.documentElement.scrollTop;
-    console.log(scrollPos);
     if (scrollPos > 0) {
       captionOpen = true;
     } else {
       captionOpen = false;
     }
   });
+
+  document.documentElement.scrollTop > 0 && (captionOpen = true);
 
   window.addEventListener("keydown", (e) => {
     let url = undefined;

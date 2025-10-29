@@ -1,10 +1,6 @@
 /** @define Figure */
 @use "_variables" as *;
 
-.Figure-body {
-  overflow-y: scroll;
-}
-
 .Figure-variables {
   --Figure-caption-header-padding: var(--spacing-s) 0 var(--spacing-l);
   --Figure-caption-header-height: calc(var(--size-h1) + var(--spacing-l) + var(--spacing-s));
@@ -21,12 +17,6 @@
     --Figure-caption-header-padding: var(--spacing-xs) 0 var(--spacing-m);
     --Figure-caption-header-height: calc(var(--size-h1) + var(--spacing-m) + var(--spacing-xs));
   }
-}
-
-.Figure-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
 }
 
 .Figure {
