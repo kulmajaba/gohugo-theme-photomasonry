@@ -90,17 +90,16 @@ const navigateTo = async (url) => {
 const scrollCaption = (open) => {
   if (open) {
     const caption = document.getElementById("captionContent");
-    caption?.scrollIntoView({
-      behavior: "smooth",
-    });
-    caption && (captionOpen = true);
+    if (caption) {
+      caption.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
   } else {
-    const container = document.getElementById("captionContainer");
-    container?.scrollTo({
+    document.documentElement.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-    container && (captionOpen = false);
   }
 };
 
@@ -137,7 +136,7 @@ const init = () => {
   document.getElementById("fullscreen")?.addEventListener("click", async () => {
     if (document.fullscreenElement === null) {
       try {
-        await document.querySelector("body")?.requestFullscreen();
+        await document.documentElement.requestFullscreen();
       } catch (e) {
         console.warn(e);
       }
@@ -172,13 +171,13 @@ const init = () => {
     }
   });
 
-  const captionContainer = document.getElementById("captionContainer");
-  captionContainer?.addEventListener("scrollend", () => {
-    const scrollPos = captionContainer.scrollTop;
+  document.addEventListener("scrollend", () => {
+    const scrollPos = document.documentElement.scrollTop;
+    console.log(scrollPos);
     if (scrollPos > 0) {
-      !captionOpen && (captionOpen = true);
+      captionOpen = true;
     } else {
-      captionOpen && (captionOpen = false);
+      captionOpen = false;
     }
   });
 

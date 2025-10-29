@@ -1,8 +1,8 @@
 /** @define Figure */
 @use "_variables" as *;
 
-.Figure {
-  margin: 0;
+.Figure-body {
+  overflow-y: scroll;
 }
 
 .Figure-variables {
@@ -21,6 +21,18 @@
     --Figure-caption-header-padding: var(--spacing-xs) 0 var(--spacing-m);
     --Figure-caption-header-height: calc(var(--size-h1) + var(--spacing-m) + var(--spacing-xs));
   }
+}
+
+.Figure-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.Figure {
+  position: fixed;
+  width: 100%;
+  margin: 0;
 }
 
 .Figure-controlLayer {
@@ -127,7 +139,6 @@
     calc(var(--Figure-img-max-height) * var(--Figure-imageContainer-aspect-ratio))
   );
 
-  position: fixed;
   display: flex;
   width: 100%;
   height: var(--Figure-img-max-height);
@@ -180,12 +191,11 @@
 }
 
 .Figure-captionContainer {
-  position: fixed;
   z-index: 1;
+  display: flex;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   padding-top: var(--Figure-img-max-height);
-  overflow-y: scroll;
 }
 
 .Figure-captionContent {

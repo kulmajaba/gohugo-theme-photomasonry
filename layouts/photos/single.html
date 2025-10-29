@@ -5,8 +5,8 @@
     {{- partial "head-custom" . -}}
     {{- partialCached "head/js-photos-single.html" . -}}
   </head>
-  <body>
-    <main class="Figure-variables">
+  <body class="Figure-body">
+    <main class="Figure-container Figure-variables">
       {{- partial "photos/control-layer" . -}}
       <figure class="Figure">
         {{- $baseFileName := .File.BaseFileName -}}
@@ -24,27 +24,27 @@
         {{- else -}}
           {{- errorf "Resource not found: %s" $imageFileNamePattern -}}
         {{- end -}}
-        <div id="captionContainer" class="Figure-captionContainer">
-          <div id="captionContent" class="Figure-captionContent">
-            <figcaption id="caption" class="Figure-caption">
-              <div class="Figure-captionHeader">
-                <h1 id="title" class="Figure-title">{{ .Title }}</h1>
-                <aside class="Figure-aside">
-                  <p id="location" class="Figure-asideInfo u-noMargin">{{- .Params.location -}}</p>
-                  {{- $dateHuman := .Date | time.Format "2006" }}
-                  <time id="date" class="Figure-asideInfo" datetime="{{ $dateHuman }}">{{ $dateHuman }}</time>
-                  <p id="medium" class="Figure-asideInfo u-noMargin">{{ .Params.medium }}</p>
-                </aside>
-              </div>
-              <div id="captionBody">
-                {{- .Content -}}
-              </div>
-            </figcaption>
-            {{- $moreIcon := resources.Get "svg/CaretDown.svg" }}
-            <button id="toggleCaption" type="button" class="Figure-captionToggle">{{ $moreIcon.Content | safeHTML }}</button>
-          </div>
-        </div>
       </figure>
+      <div id="captionContainer" class="Figure-captionContainer">
+        <div id="captionContent" class="Figure-captionContent">
+          <figcaption id="caption" class="Figure-caption">
+            <div class="Figure-captionHeader">
+              <h1 id="title" class="Figure-title">{{ .Title }}</h1>
+              <aside class="Figure-aside">
+                <p id="location" class="Figure-asideInfo u-noMargin">{{- .Params.location -}}</p>
+                {{- $dateHuman := .Date | time.Format "2006" }}
+                <time id="date" class="Figure-asideInfo" datetime="{{ $dateHuman }}">{{ $dateHuman }}</time>
+                <p id="medium" class="Figure-asideInfo u-noMargin">{{ .Params.medium }}</p>
+              </aside>
+            </div>
+            <div id="captionBody">
+              {{- .Content -}}
+            </div>
+          </figcaption>
+          {{- $moreIcon := resources.Get "svg/CaretDown.svg" }}
+          <button id="toggleCaption" type="button" class="Figure-captionToggle">{{ $moreIcon.Content | safeHTML }}</button>
+        </div>
+      </div>
     </main>
   </body>
 </html>
