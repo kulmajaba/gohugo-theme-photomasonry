@@ -182,11 +182,14 @@ const init = () => {
     const toggle = document.getElementById("toggleCaption");
     if (scrollPos > 0) {
       captionOpen = true;
-      toggle?.classList.add("is-open");
+      toggle?.classList.add("is-open", "is-instant");
     } else {
       captionOpen = false;
+      toggle?.classList.add("is-instant");
       toggle?.classList.remove("is-open");
     }
+
+    setTimeout(() => toggle?.classList.remove("is-instant"), 100);
   });
 
   window.addEventListener("keydown", (e) => {
