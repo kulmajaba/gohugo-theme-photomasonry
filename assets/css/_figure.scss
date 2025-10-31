@@ -85,8 +85,7 @@
   border-radius: 1.5px;
   background: var(--color-icon);
   transform: translateY(-50%);
-  transition: transform var(--timing-s) cubic-bezier(0.4, 0.1, 0.1, 0.9),
-    width var(--timing-s) cubic-bezier(0.4, 0.1, 0.1, 0.9);
+  transition: transform var(--timing-s) cubic-bezier(0.4, 0.1, 0.1, 0.9);
 }
 
 .Figure-captionToggle.is-instant .Figure-captionCaret {
@@ -94,23 +93,23 @@
 }
 
 .Figure-captionCaret.is-first {
-  left: 4.5px;
-  transform: rotate(-45deg);
-  transform-origin: 1.5px center;
-}
-
-.Figure-captionCaret.is-second {
-  right: 4.5px;
-  transform: rotate(45deg);
+  left: calc(-4.14px + 4.5px);
+  transform: translateY(-8px) rotate(-45deg);
   transform-origin: calc(100% - 1.5px) center;
 }
 
+.Figure-captionCaret.is-second {
+  right: calc(-4.14px + 4.5px);
+  transform: translateY(-8px) rotate(45deg);
+  transform-origin: 1.5px center;
+}
+
 .Figure-captionToggle.is-open .Figure-captionCaret.is-first {
-  transform: rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
 }
 
 .Figure-captionToggle.is-open .Figure-captionCaret.is-second {
-  transform: rotate(-45deg);
+  transform: translateY(8px) rotate(-45deg);
 }
 
 .Figure-control.is-disabled,
