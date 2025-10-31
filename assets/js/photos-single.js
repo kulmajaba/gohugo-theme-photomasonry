@@ -227,13 +227,14 @@ const init = () => {
 };
 
 const initAfterLoad = () => {
-  console.log(document.documentElement.scrollTop);
+  const toggle = document.getElementById("toggleCaption");
+
   if (document.documentElement.scrollTop > 0) {
     captionOpen = true;
-    const toggle = document.getElementById("toggleCaption");
     toggle?.classList.add("is-open");
-    //toggle?.classList.remove("is-instant");
   }
+
+  setTimeout(() => toggle?.classList.remove("is-instant"), 100);
 };
 
 if (document.readyState !== "loading") {
