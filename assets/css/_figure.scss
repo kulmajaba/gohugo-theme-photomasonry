@@ -3,19 +3,24 @@
 
 .Figure-variables {
   --Figure-caption-header-padding: var(--spacing-s) 0 var(--spacing-l);
-  --Figure-caption-header-height: calc(var(--size-h1) + var(--spacing-l) + var(--spacing-s));
+  --Figure-caption-header-height: calc(var(--size-h1) + var(--spacing-s) + var(--spacing-l));
   --Figure-img-max-height: calc(100svh - var(--Figure-caption-header-height));
   --Figure-control-offset-x: calc(var(--Figure-caption-header-height) / 2 + 4px);
   --Figure-control-offset-y: calc(var(--Figure-caption-header-height) / 2 + 4px);
   --Figure-caption-padding: 0 calc(var(--Figure-control-offset-x) * 2) var(--spacing-xxl);
 
-  @media (max-width: $layout-breakpoint-s), (max-height: $layout-breakpoint-s) {
-    --Figure-control-offset-x: calc(48px / 2);
-  }
-
   @media (max-width: $layout-breakpoint-xs), (max-height: $layout-breakpoint-xs) {
-    --Figure-caption-header-padding: var(--spacing-xs) 0 var(--spacing-m);
-    --Figure-caption-header-height: calc(var(--size-h1) + var(--spacing-m) + var(--spacing-xs));
+    --Figure-caption-header-padding: var(--spacing-xxs) 0 var(--spacing-m);
+    --Figure-caption-header-height: calc(var(--size-h1) + var(--spacing-xxs) + var(--spacing-m));
+    --Figure-caption-padding: 0 calc(var(--Figure-control-offset-x) * 1.75) var(--spacing-xxl);
+  }
+}
+
+@media (max-width: $layout-breakpoint-xs), (max-height: $layout-breakpoint-xs) {
+  /* stylelint-disable-next-line plugin/selector-bem-pattern */
+  html:fullscreen .Figure-variables {
+    --Figure-control-offset-x: 36px;
+    --Figure-control-offset-y: 36px;
   }
 }
 
@@ -32,8 +37,9 @@
   width: 100%;
 
   /* If the transition in mobile browsers between lvh and svh becomes smoother, this can be 100% */
-  height: 100svh;
+  height: 100dvh;
   pointer-events: none;
+  transition: height var(--timing-xs) ease;
 }
 
 .Figure-control {
@@ -58,14 +64,53 @@
 
 .Figure-captionToggle {
   position: absolute;
-  top: calc(var(--Figure-caption-header-height) - 32px);
+  top: -20px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
   border: none;
   background: none;
   cursor: pointer;
+  filter: drop-shadow(0 0 1px var(--color-icon-drop-shadow));
+  opacity: var(--opacity-icon);
+  transition: opacity var(--timing-s);
+}
 
-  @media (max-width: $layout-breakpoint-xs), (max-height: $layout-breakpoint-xs) {
-    top: -20px;
-  }
+.Figure-captionCaret {
+  position: absolute;
+  top: 50%;
+  display: block;
+  width: calc(14.14px + 3px);
+  height: 3px;
+  border-radius: 1.5px;
+  background: var(--color-icon);
+  transform: translateY(-50%);
+  transition: transform var(--timing-s) cubic-bezier(0.4, 0.1, 0.1, 0.9),
+    width var(--timing-s) cubic-bezier(0.4, 0.1, 0.1, 0.9);
+}
+
+.Figure-captionToggle.is-instant .Figure-captioncaret {
+  transition: none;
+}
+
+.Figure-captionCaret.is-first {
+  left: 4.5px;
+  transform: rotate(-45deg);
+  transform-origin: 1.5px center;
+}
+
+.Figure-captionCaret.is-second {
+  right: 4.5px;
+  transform: rotate(45deg);
+  transform-origin: calc(100% - 1.5px) center;
+}
+
+.Figure-captionToggle.is-open .Figure-captionCaret.is-first {
+  transform: rotate(45deg);
+}
+
+.Figure-captionToggle.is-open .Figure-captionCaret.is-second {
+  transform: rotate(-45deg);
 }
 
 .Figure-control.is-disabled,
@@ -74,23 +119,12 @@
   pointer-events: none;
 }
 
-/* stylelint-disable-next-line plugin/selector-bem-pattern */
-.Figure-captionToggle svg {
-  fill: var(--color-icon);
-  opacity: var(--opacity-icon);
-  transition: opacity var(--timing-s);
-
-  @media (max-width: $layout-breakpoint-s), (max-height: $layout-breakpoint-s) {
-    filter: drop-shadow(0 0 1px var(--color-icon-drop-shadow));
-  }
-}
-
 @media (hover: hover) and (pointer: fine) {
   .Figure-control:hover svg {
     opacity: var(--opacity-icon-hover);
   }
 
-  .Figure-captionToggle:hover svg {
+  .Figure-captionToggle:hover {
     opacity: var(--opacity-icon-hover);
   }
 }

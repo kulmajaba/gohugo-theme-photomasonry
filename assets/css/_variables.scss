@@ -6,9 +6,14 @@ $layout-breakpoint-m: 800px;
 $layout-breakpoint-l: 1200px;
 
 :root {
+  /* Opacities */
+  --opacity-icon: 0.5;
+  --opacity-icon-hover: 0.75;
+  --opacity-text-secondary: 0.8;
+
   /* Colors */
   --color-text: rgb(28 28 28);
-  --color-text-secondary: rgb(28 28 28 / 0.8);
+  --color-text-secondary: rgb(28 28 28 / var(--opacity-text-secondary));
   --color-text-link: rgb(14 83 99);
   --color-text-code: rgb(111 59 0);
   --color-text-on-dark: rgb(246 246 243);
@@ -61,10 +66,6 @@ $layout-breakpoint-l: 1200px;
     );
   }
 
-  /* Opacities */
-  --opacity-icon: 0.5;
-  --opacity-icon-hover: 0.75;
-
   /* Spacing */
   --spacing-xxs: 4px;
   --spacing-xs: 8px;
@@ -111,5 +112,6 @@ $layout-breakpoint-l: 1200px;
   --max-width-text-content: calc(960px + var(--spacing-l) * 2);
 
   /* Timing */
+  --timing-xs: 0.1s;
   --timing-s: 0.2s;
 }

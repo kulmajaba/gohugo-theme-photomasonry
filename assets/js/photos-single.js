@@ -88,6 +88,8 @@ const navigateTo = async (url) => {
 };
 
 const scrollCaption = (open) => {
+  const toggle = document.getElementById("toggleCaption");
+
   if (open) {
     const caption = document.getElementById("captionContent");
     if (caption) {
@@ -95,6 +97,7 @@ const scrollCaption = (open) => {
         behavior: "smooth",
       });
       captionOpen = true;
+      toggle?.classList.add("is-open");
     }
   } else {
     document.documentElement.scrollTo({
@@ -102,6 +105,7 @@ const scrollCaption = (open) => {
       behavior: "smooth",
     });
     captionOpen = false;
+    toggle?.classList.remove("is-open");
   }
 };
 
@@ -122,7 +126,6 @@ const init = () => {
   const loadingIndicator = document.getElementById("loadingIndicator");
   if (image && loadingIndicator) {
     image.addEventListener("load", () => {
-      console.log("ses");
       loadingIndicator.classList.remove("is-visible");
     });
 
@@ -131,7 +134,7 @@ const init = () => {
     }
   }
 
-  document.getElementById("toggleCaption").addEventListener("click", () => {
+  document.getElementById("toggleCaption")?.addEventListener("click", () => {
     scrollCaption(!captionOpen);
   });
 
@@ -175,14 +178,16 @@ const init = () => {
 
   document.addEventListener("scrollend", () => {
     const scrollPos = document.documentElement.scrollTop;
+    console.log(scrollPos);
+    const toggle = document.getElementById("toggleCaption");
     if (scrollPos > 0) {
       captionOpen = true;
+      toggle?.classList.add("is-open");
     } else {
       captionOpen = false;
+      toggle?.classList.remove("is-open");
     }
   });
-
-  document.documentElement.scrollTop > 0 && (captionOpen = true);
 
   window.addEventListener("keydown", (e) => {
     let url = undefined;
@@ -221,10 +226,24 @@ const init = () => {
   });
 };
 
+const initAfterLoad = () => {
+  console.log(document.documentElement.scrollTop);
+  if (document.documentElement.scrollTop > 0) {
+    captionOpen = true;
+    const toggle = document.getElementById("toggleCaption");
+    toggle?.classList.add("is-open");
+    //toggle?.classList.remove("is-instant");
+  }
+};
+
 if (document.readyState !== "loading") {
   init();
 } else {
-  document.addEventListener("DOMContentLoaded", () => {
-    init();
-  });
+  document.addEventListener("DOMContentLoaded", () => init());
+}
+
+if (document.readyState === "complete") {
+  initAfterLoad();
+} else {
+  window.addEventListener("load", () => initAfterLoad());
 }

@@ -42,7 +42,10 @@
             </div>
           </figcaption>
           {{- $moreIcon := resources.Get "svg/CaretDown.svg" }}
-          <button id="toggleCaption" type="button" class="Figure-captionToggle">{{ $moreIcon.Content | safeHTML }}</button>
+          <button id="toggleCaption" type="button" class="Figure-captionToggle is-instant">
+            <span aria-hidden class="Figure-captionCaret is-first"></span>
+            <span aria-hidden class="Figure-captionCaret is-second"></span>
+          </button>
         </div>
       </div>
     </main>
