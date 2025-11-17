@@ -9,7 +9,7 @@ A photos-first Hugo website theme with blog features
 - Responsive
 - Dark and light theme support (based on the device preference)
 - Accessible
-- 95% pure HTML/CSS, no unnecessary JS tricks
+- Mostly pure HTML/CSS, JavaScript is only used where needed to improve UX
 - Automatic image processing for galleries with resizing and watermarking
 
 ## Installation
