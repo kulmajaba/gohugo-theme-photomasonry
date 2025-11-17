@@ -1,5 +1,7 @@
 @use "_variables" as *;
 
+/* Fallback font stacks from modernfontstacks.com */
+
 * {
   box-sizing: border-box;
   scrollbar-color: var(--color-bg-scrollbar-thumb) var(--color-bg-scrollbar);
