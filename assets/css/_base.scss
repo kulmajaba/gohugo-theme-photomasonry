@@ -8,7 +8,7 @@
 
 html {
   height: 100%;
-  font-family: "Gothic A1", sans-serif;
+  font-family: "Gothic A1", Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
   font-size: var(--size-body);
   font-weight: var(--weight-normal);
   line-height: 1.4;
@@ -37,7 +37,8 @@ span {
 }
 
 code {
-  font-family: Inconsolata, monospace;
+  font-family: Inconsolata, ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono",
+    monospace;
 }
 
 p code {
@@ -50,7 +51,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Playfair Display", serif;
+  font-family: "Playfair Display", Didot, "Bodoni MT", "Noto Serif Display", "URW Palladio L", "P052", Sylfaen, serif;
   font-weight: var(--weight-medium);
   letter-spacing: 0.02em;
 }
