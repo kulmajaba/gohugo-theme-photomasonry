@@ -34,3 +34,10 @@
 .u-paddingBottom {
   padding-bottom: 1rem;
 }
+
+.u-srOnly {
+  position: absolute;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+}

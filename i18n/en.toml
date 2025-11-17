@@ -16,3 +16,9 @@
 [postWithCount]
   one = '{{ . }} Post'
   other = '{{ . }} Posts'
+
+[menu]
+  other = 'Menu'
+
+[home]
+  other = 'Home'

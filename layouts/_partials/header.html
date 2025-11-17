@@ -4,6 +4,7 @@
     <div class="Header-group">
         {{- with resources.Get .Site.Params.logo }}
           <a href="/" class="Header-titleContainer is-logo">
+            <div class="u-srOnly">{{- i18n "home" -}}</div>
             {{ .Content | safeHTML -}}
           </a>
         {{- else }}
@@ -20,7 +21,8 @@
     </ul>
 
     <div class="Header-menuToggle">
-      <input class="Header-menuToggleCheckbox" type="checkbox" />
+      <label class="u-srOnly" for="menuVisible">{{- i18n "menu" -}}</label>
+      <input id="menuVisible" class="Header-menuToggleCheckbox" type="checkbox" />
       
       <span aria-hidden class="Header-menuHamburger is-first"></span>
       <span aria-hidden class="Header-menuHamburger is-second"></span>
@@ -29,7 +31,7 @@
   </div>
 
   <nav class="Header-menu">
-    <ul class="Header-menuContent">
+    <div class="Header-menuContent">
       {{- if not .IsHome -}}
         <ul class="Header-menuSublist is-borderBottom">
           {{ partial "header/breadcrumbs" (dict "context" . "menu" true) -}}
@@ -38,6 +40,6 @@
       <ul class="Header-menuSublist">
         {{ partial "header/sections" (dict "context" . "menu" true) -}}
       </ul>
-    </ul>
+    </div>
   </nav>
 </header>

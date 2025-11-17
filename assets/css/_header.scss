@@ -218,13 +218,13 @@
   padding: var(--spacing-m) var(--responsive-padding-horizontal);
   margin: 0;
   gap: var(--spacing-s);
-  list-style-type: none;
 }
 
 .Header-menuSublist {
   display: flex;
   flex-direction: column;
   padding: 0;
+  margin: 0;
   gap: var(--spacing-xs);
   list-style-type: none;
 }
