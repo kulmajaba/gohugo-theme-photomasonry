@@ -227,6 +227,11 @@ const init = () => {
       navigateTo(url);
     }
   });
+
+  window.addEventListener("popstate", (event) => {
+    // Force window to reload when back navigation is used after dynamic loading
+    window.location.href = window.location.href;
+  });
 };
 
 const initAfterLoad = () => {
