@@ -1,26 +1,33 @@
 /** @define Figure */
 @use "_variables" as *;
 
-.Figure {
-  margin: 0;
-}
-
 .Figure-variables {
   --Figure-caption-header-padding: var(--spacing-s) 0 var(--spacing-l);
-  --Figure-caption-header-height: calc(var(--size-h1) + var(--spacing-l) + var(--spacing-s));
+  --Figure-caption-header-height: calc(var(--size-h1) + var(--spacing-s) + var(--spacing-l));
   --Figure-img-max-height: calc(100svh - var(--Figure-caption-header-height));
   --Figure-control-offset-x: calc(var(--Figure-caption-header-height) / 2 + 4px);
   --Figure-control-offset-y: calc(var(--Figure-caption-header-height) / 2 + 4px);
   --Figure-caption-padding: 0 calc(var(--Figure-control-offset-x) * 2) var(--spacing-xxl);
 
-  @media (max-width: $layout-breakpoint-s) {
-    --Figure-control-offset-x: calc(48px / 2);
-  }
-
   @media (max-width: $layout-breakpoint-xs), (max-height: $layout-breakpoint-xs) {
-    --Figure-caption-header-padding: var(--spacing-xs) 0 var(--spacing-l);
-    --Figure-caption-header-height: calc(var(--size-h1) + var(--spacing-l) + var(--spacing-xs));
+    --Figure-caption-header-padding: var(--spacing-xxs) 0 var(--spacing-m);
+    --Figure-caption-header-height: calc(var(--size-h1) + var(--spacing-xxs) + var(--spacing-m));
+    --Figure-caption-padding: 0 calc(var(--Figure-control-offset-x) * 1.75) var(--spacing-xxl);
   }
+}
+
+@media (max-width: $layout-breakpoint-xs), (max-height: $layout-breakpoint-xs) {
+  /* stylelint-disable-next-line plugin/selector-bem-pattern */
+  html:fullscreen .Figure-variables {
+    --Figure-control-offset-x: 36px;
+    --Figure-control-offset-y: 36px;
+  }
+}
+
+.Figure {
+  position: fixed;
+  width: 100%;
+  margin: 0;
 }
 
 .Figure-controlLayer {
@@ -30,13 +37,15 @@
   width: 100%;
 
   /* If the transition in mobile browsers between lvh and svh becomes smoother, this can be 100% */
-  height: 100svh;
+  height: 100dvh;
   pointer-events: none;
+  transition: height var(--timing-xs) ease;
 }
 
 .Figure-control {
   position: absolute;
   display: flex;
+  padding: 0;
   pointer-events: all;
 }
 
@@ -44,9 +53,10 @@
 .Figure-control svg {
   fill: var(--color-icon);
   filter: drop-shadow(0 0 1px var(--color-icon-drop-shadow));
-  transition: fill var(--timing-s);
+  opacity: var(--opacity-icon);
+  transition: opacity var(--timing-s);
 
-  @media (max-width: $layout-breakpoint-s), (max-height: $layout-breakpoint-s) {
+  @media (max-width: $layout-breakpoint-xs), (max-height: $layout-breakpoint-xs) {
     width: 40px;
     height: 40px;
   }
@@ -54,14 +64,52 @@
 
 .Figure-captionToggle {
   position: absolute;
-  top: calc(var(--Figure-caption-header-height) - 32px);
+  top: -20px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
   border: none;
   background: none;
   cursor: pointer;
+  filter: drop-shadow(0 0 1px var(--color-icon-drop-shadow));
+  opacity: var(--opacity-icon);
+  transition: opacity var(--timing-s);
+}
 
-  @media (max-width: $layout-breakpoint-s), (max-height: $layout-breakpoint-s) {
-    top: -20px;
-  }
+.Figure-captionCaret {
+  position: absolute;
+  top: 50%;
+  display: block;
+  width: calc(14.14px + 3px);
+  height: 3px;
+  border-radius: 1.5px;
+  background: var(--color-icon);
+  transform: translateY(-50%);
+  transition: transform var(--timing-s) cubic-bezier(0.4, 0.1, 0.1, 0.9);
+}
+
+.Figure-captionToggle.is-instant .Figure-captionCaret {
+  transition: none;
+}
+
+.Figure-captionCaret.is-first {
+  left: calc(-4.14px + 4.5px);
+  transform: translateY(-8px) rotate(-45deg);
+  transform-origin: calc(100% - 1.5px) center;
+}
+
+.Figure-captionCaret.is-second {
+  right: calc(-4.14px + 4.5px);
+  transform: translateY(-8px) rotate(45deg);
+  transform-origin: 1.5px center;
+}
+
+.Figure-captionToggle.is-open .Figure-captionCaret.is-first {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.Figure-captionToggle.is-open .Figure-captionCaret.is-second {
+  transform: translateY(8px) rotate(-45deg);
 }
 
 .Figure-control.is-disabled,
@@ -70,29 +118,28 @@
   pointer-events: none;
 }
 
-/* stylelint-disable-next-line plugin/selector-bem-pattern */
-.Figure-captionToggle svg {
-  fill: var(--color-icon);
-  transition: fill var(--timing-s);
+@media (hover: hover) and (pointer: fine) {
+  .Figure-control:hover svg {
+    opacity: var(--opacity-icon-hover);
+  }
 
-  @media (max-width: $layout-breakpoint-s), (max-height: $layout-breakpoint-s) {
-    filter: drop-shadow(0 0 1px var(--color-icon-drop-shadow));
+  .Figure-captionToggle:hover {
+    opacity: var(--opacity-icon-hover);
   }
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .Figure-control:hover svg {
-    fill: var(--color-icon-hover);
-  }
-
-  .Figure-captionToggle:hover svg {
-    fill: var(--color-icon-hover);
-  }
+.Figure-fullscreen {
+  top: var(--Figure-control-offset-y);
+  left: var(--Figure-control-offset-x);
+  border: none;
+  background: none;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
 }
 
 .Figure-close {
   top: var(--Figure-control-offset-y);
-  right: calc(var(--Figure-control-offset-x) + var(--width-scrollbar));
+  right: var(--Figure-control-offset-x);
   transform: translate(50%, -50%);
 }
 
@@ -103,18 +150,49 @@
 }
 
 .Figure-next {
-  right: calc(var(--Figure-control-offset-x) + var(--width-scrollbar));
+  right: var(--Figure-control-offset-x);
   bottom: var(--Figure-control-offset-y);
   transform: translate(50%, 50%);
 }
 
 .Figure-imageContainer {
-  position: fixed;
+  --Figure-imageContainer-aspect-ratio: calc(var(--image-width) / var(--image-height));
+  --Figure-imageContainer-width: min(
+    100%,
+    calc(var(--Figure-img-max-height) * var(--Figure-imageContainer-aspect-ratio))
+  );
+
   display: flex;
   width: 100%;
   height: var(--Figure-img-max-height);
   align-items: center;
   justify-content: center;
+}
+
+.Figure-loading {
+  position: absolute;
+  display: none;
+  width: var(--Figure-imageContainer-width);
+  height: auto;
+  max-height: var(--Figure-img-max-height);
+  animation: gradient 2s ease infinite;
+  aspect-ratio: var(--Figure-imageContainer-aspect-ratio);
+  background: var(--gradient-loading);
+  background-size: 400% 100%;
+}
+
+.Figure-loading.is-visible {
+  display: block;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .Figure-img {
@@ -128,20 +206,19 @@
   The difference between the two is the offset needed to allow the image to occupy the maximum height and preferably center vertically
   The result is then clamped between 0 and the height of the title bar, to at max offset the image will be at the top of the viewport
   */
-  width: 100%;
+  width: var(--Figure-imageContainer-width);
   height: auto;
   max-height: var(--Figure-img-max-height);
-  aspect-ratio: var(--image-width) / var(--image-height);
+  aspect-ratio: var(--Figure-imageContainer-aspect-ratio);
   object-fit: contain;
 }
 
 .Figure-captionContainer {
-  position: fixed;
   z-index: 1;
+  display: flex;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   padding-top: var(--Figure-img-max-height);
-  overflow-y: scroll;
 }
 
 .Figure-captionContent {
@@ -182,7 +259,8 @@
 .Figure-aside {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  align-items: center;
+  align-self: stretch;
   margin-top: 4px;
   color: var(--color-text-secondary);
 
@@ -201,11 +279,11 @@
 .Figure-asideInfo:not(:first-child)::before {
   width: 1px;
   height: 24px;
-  margin: var(--spacing-s);
+  margin: 0 var(--spacing-s);
   background: var(--color-text-secondary);
   content: "";
 
   @media (max-width: $layout-breakpoint-s), (max-height: $layout-breakpoint-s) {
-    margin: var(--spacing-xxs) var(--spacing-xs);
+    margin: 0 var(--spacing-xs);
   }
 }

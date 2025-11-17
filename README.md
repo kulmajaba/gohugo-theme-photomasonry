@@ -9,7 +9,7 @@ A photos-first Hugo website theme with blog features
 - Responsive
 - Dark and light theme support (based on the device preference)
 - Accessible
-- 95% pure HTML/CSS, no unnecessary JS tricks
+- Mostly pure HTML/CSS, JavaScript is only used where needed to improve UX
 - Automatic image processing for galleries with resizing and watermarking
 
 ## Installation
@@ -48,8 +48,9 @@ For more information read the official [setup guide](//gohugo.io/getting-started
 ## Configuration
 
 - Set your logo and watermark with `params` (optional)
-- The post page is set up so that the `lastmod` date is shown if it exists but Hugo by default will return almost any date in the `lastmod` field. You should narrow the definition down.
-- The theme is setup for code syntax highlighting with `base16-snazzy` style but if you plan on using it, you'll need to add it to your configuration.
+- The post page is set up so that the `lastmod` date is shown if it exists but Hugo by default will return almost any date in the `lastmod` field. You should narrow the definition down in the `frontmatter` options.
+- The theme is setup for code syntax highlighting with `base16-snazzy` style but if you plan on using it, you'll need to add it to your configuration under `markup` options.
+- The theme also supports a fullscreen experience but if you want to enable navigating through photos while in fullscreen mode, you need to add `outputs` options that ensure the required JSON files are being created.
 
 Example of theme configuration in your `hugo.toml`
 
@@ -73,6 +74,9 @@ theme = 'github.com/kulmajaba/gohugo-theme-photomasonry'
     noClasses = false
     style = 'base16-snazzy'
     tabWidth = 2
+
+[outputs]
+  page = ['html', 'json']
 ```
 
 ### Favicon

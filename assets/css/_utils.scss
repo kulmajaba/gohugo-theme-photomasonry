@@ -4,10 +4,6 @@
   margin: 0;
 }
 
-.u-matchLineHeight {
-  line-height: 1;
-}
-
 .u-noBullets {
   padding: 0;
   margin: 0;
@@ -30,10 +26,6 @@
   max-width: var(--max-width-text-content);
 }
 
-.u-gapL {
-  gap: var(--spacing-l);
-}
-
 .u-responsiveHPadding {
   padding-right: var(--responsive-padding-horizontal);
   padding-left: var(--responsive-padding-horizontal);
@@ -41,4 +33,11 @@
 
 .u-paddingBottom {
   padding-bottom: 1rem;
+}
+
+.u-srOnly {
+  position: absolute;
+  overflow: hidden;
+  width: 0;
+  height: 0;
 }

@@ -1,0 +1,11 @@
+{{- $baseFileName := .File.BaseFileName -}}
+{{- $imageFileNamePattern := print $baseFileName ".{jpg,jpeg,webp,png,tif,tiff}" -}}
+{{- $links := partial "list/photo-links" . -}}
+
+{{- $imageResource := .CurrentSection.Resources.GetMatch $imageFileNamePattern -}}
+{{- if not $imageResource -}}
+  {{- errorf "Resource not found: %s" $imageFileNamePattern -}}
+{{- end -}}
+{{- $image := partial "photos/process-photo.html" $imageResource -}}
+
+{{- dict "title" .Title "location" .Params.location "date" (.Date | time.Format "2006") "medium" .Params.medium "alt" (.Params.alt | htmlEscape) "content" .Content "close" .Parent.RelPermalink "pagesPrev" $links.pagesPrev "pagesNext" $links.pagesNext "photoStreamPrev" $links.photoStreamPrev "photoStreamNext" $links.photoStreamNext "src" $image.RelPermalink "style" (printf "--image-width:%d;--image-height:%d;" $image.Width $image.Height) "siteTitle" (printf "%s | %s" .Title site.Title) | jsonify -}}

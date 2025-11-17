@@ -10,7 +10,7 @@
 
 .Post-subtitle {
   color: var(--color-text-secondary);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .Post-imgContentContainer {
@@ -75,7 +75,7 @@
 }
 
 .Post-img {
-  --Post-img-max-height: Min(960px, 75vh);
+  --Post-img-max-height: Min(960px, 75svh);
 
   width: 100%;
   max-width: Min(

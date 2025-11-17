@@ -1,29 +1,13 @@
 <div class="Figure-controlLayer">
+  {{- $fullscreenIcon := resources.Get "svg/CornersOut.svg" -}}
   {{- $closeIcon := resources.Get "svg/X.svg" -}}
   {{- $previousIcon := resources.Get "svg/CaretLeft.svg" -}}
   {{- $nextIcon := resources.Get "svg/CaretRight.svg" -}}
 
-  {{- $photoStream := partial "list/photostream" . -}}
-  {{- $photoStreamNext := "" -}}
-  {{- $photoStreamPrev := "" -}}
-  {{- with $photoStream.Next . -}}
-    {{- $photoStreamPrev = printf "%s?source=photostream" .RelPermalink -}}
-  {{- end -}}
-  {{- with $photoStream.Prev . -}}
-    {{- $photoStreamNext = printf "%s?source=photostream" .RelPermalink -}}
-  {{- end -}}
+  {{- $links := partial "list/photo-links" . -}}
 
-  {{- $pages := partial "list/gallery-pages" .Parent -}}
-  {{- $pagesNext := "" -}}
-  {{- $pagesPrev := "" -}}
-  {{- with $pages.Next . -}}
-    {{- $pagesPrev = .RelPermalink -}}
-  {{- end -}}
-  {{- with $pages.Prev . -}}
-    {{- $pagesNext = .RelPermalink -}}
-  {{- end -}}
-
+  <button class="Figure-control Figure-fullscreen" id="fullscreen">{{- $fullscreenIcon.Content | safeHTML -}}</button>
   <a class="Figure-control Figure-close" id="close" href="{{ .Parent.RelPermalink }}" data-photo-stream-href="/">{{- $closeIcon.Content | safeHTML -}}</a>
-  <a class="Figure-control Figure-previous {{- if not $pagesPrev }} is-disabled{{- end -}}" id="previous" href="{{ $pagesPrev }}" data-photo-stream-href="{{ $photoStreamPrev }}">{{- $previousIcon.Content | safeHTML -}}</a>
-  <a class="Figure-control Figure-next {{- if not $pagesNext }} is-disabled{{- end -}}" id="next" href="{{ $pagesNext }}" data-photo-stream-href="{{ $photoStreamNext }}">{{- $nextIcon.Content | safeHTML -}}</a>
+  <a class="Figure-control Figure-previous {{- if not $links.pagesPrev }} is-disabled{{- end -}}" id="previous" href="{{ $links.pagesPrev }}" data-photo-stream-href="{{ $links.photoStreamPrev }}">{{- $previousIcon.Content | safeHTML -}}</a>
+  <a class="Figure-control Figure-next {{- if not $links.pagesNext }} is-disabled{{- end -}}" id="next" href="{{ $links.pagesNext }}" data-photo-stream-href="{{ $links.photoStreamNext }}">{{- $nextIcon.Content | safeHTML -}}</a>
 </div>

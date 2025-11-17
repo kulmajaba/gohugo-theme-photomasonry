@@ -147,6 +147,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 7px;
+  opacity: var(--opacity-text-secondary);
   user-select: none;
 
   @media (width > #{$layout-breakpoint-m}) {
@@ -171,7 +172,7 @@
   width: 32px;
   height: 3px;
   border-radius: 4px;
-  background: var(--color-text-secondary);
+  background: var(--color-text);
   transform-origin: 1.5px center;
   transition: transform var(--timing-s) cubic-bezier(0.4, 0.1, 0.1, 0.9), opacity var(--timing-s) ease;
 }
@@ -196,7 +197,7 @@
   width: 100%;
   max-height: calc(100dvh - 100%);
   background: var(--color-bg-card);
-  filter: drop-shadow(0 2px 12px var(--color-icon-drop-shadow));
+  filter: drop-shadow(0 2px 12px var(--color-menu-drop-shadow));
   overflow-y: auto;
   transform: translate(-101%, 100%);
   transform-origin: 100% 0;
@@ -217,13 +218,13 @@
   padding: var(--spacing-m) var(--responsive-padding-horizontal);
   margin: 0;
   gap: var(--spacing-s);
-  list-style-type: none;
 }
 
 .Header-menuSublist {
   display: flex;
   flex-direction: column;
   padding: 0;
+  margin: 0;
   gap: var(--spacing-xs);
   list-style-type: none;
 }

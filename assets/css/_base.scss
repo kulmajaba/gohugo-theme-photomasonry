@@ -1,56 +1,29 @@
 @use "_variables" as *;
 
+/* Fallback font stacks from modernfontstacks.com */
+
 * {
   box-sizing: border-box;
-}
-
-@supports selector(::-webkit-scrollbar) {
-  *::-webkit-scrollbar {
-    width: var(--width-scrollbar);
-    height: var(--width-scrollbar);
-    background-color: var(--color-bg-scrollbar);
-  }
-
-  *::-webkit-scrollbar-thumb {
-    border-radius: var(--width-scrollbar);
-    background-color: var(--color-bg-scrollbar-thumb);
-  }
-
-  *::-webkit-scrollbar-track-piece:start {
-    background: transparent;
-  }
-
-  *::-webkit-scrollbar-track-piece:end {
-    background: transparent;
-  }
-}
-
-@supports not selector(::-webkit-scrollbar) {
-  * {
-    scrollbar-color: var(--color-bg-scrollbar-thumb) var(--color-bg-scrollbar);
-    scrollbar-width: thin;
-  }
+  scrollbar-color: var(--color-bg-scrollbar-thumb) var(--color-bg-scrollbar);
+  scrollbar-width: thin;
 }
 
 html {
   height: 100%;
-  font-family: "Gothic A1", sans-serif;
-  font-size: 17px;
+  font-family: "Gothic A1", Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+  font-size: var(--size-body);
+  font-weight: var(--weight-normal);
   line-height: 1.4;
-
-  @media (prefers-color-scheme: dark) {
-    font-weight: 350;
-  }
-
-  @media (max-width: $layout-breakpoint-xs), (max-height: $layout-breakpoint-xs) {
-    font-size: 15px;
-  }
 }
 
 body {
   min-height: 100%;
   background: var(--color-bg);
   color: var(--color-text);
+}
+
+body::backdrop {
+  background: var(--color-bg);
 }
 
 p {
@@ -66,7 +39,8 @@ span {
 }
 
 code {
-  font-family: Inconsolata, monospace;
+  font-family: Inconsolata, ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono",
+    monospace;
 }
 
 p code {
@@ -79,12 +53,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Playfair Display", serif;
-  font-weight: 400;
-
-  @media (prefers-color-scheme: dark) {
-    font-weight: 350;
-  }
+  font-family: "Playfair Display", Didot, "Bodoni MT", "Noto Serif Display", "URW Palladio L", "P052", Sylfaen, serif;
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.02em;
 }
 
 h1 {
@@ -127,7 +98,7 @@ table {
 th {
   padding: 0.2em 0.5em;
   border: 1px solid var(--color-border-table);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   text-align: left;
 }
 

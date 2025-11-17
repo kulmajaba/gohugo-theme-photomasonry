@@ -1,0 +1,3 @@
+[outputFormats]
+  [outputFormats.json]
+    path = 'json'
