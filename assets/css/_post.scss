@@ -13,6 +13,10 @@
   font-weight: var(--weight-medium);
 }
 
+.Post-subtitle--secondary {
+  color: var(--color-text-tertiary);
+}
+
 .Post-imgContentContainer {
   display: flex;
   flex-direction: row;

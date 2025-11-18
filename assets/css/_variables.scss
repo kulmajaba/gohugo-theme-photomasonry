@@ -10,10 +10,12 @@ $layout-breakpoint-l: 1200px;
   --opacity-icon: 0.5;
   --opacity-icon-hover: 0.75;
   --opacity-text-secondary: 0.8;
+  --opacity-text-tertiary: 0.65;
 
   /* Colors */
   --color-text: rgb(28 28 28);
   --color-text-secondary: rgb(28 28 28 / var(--opacity-text-secondary));
+  --color-text-tertiary: rgb(28 28 28 / var(--opacity-text-tertiary));
   --color-text-link: rgb(14 83 99);
   --color-text-code: rgb(111 59 0);
   --color-text-on-dark: rgb(246 246 243);
@@ -41,7 +43,8 @@ $layout-breakpoint-l: 1200px;
 
   @media (prefers-color-scheme: dark) {
     --color-text: rgb(246 246 243);
-    --color-text-secondary: rgb(246 246 243 / 0.8);
+    --color-text-secondary: rgb(246 246 243 / var(--opacity-text-secondary));
+    --color-text-tertiary: rgb(246 246 243 / var(--opacity-text-tertiary));
     --color-text-link: rgb(135 225 250);
     --color-text-code: rgb(255 196 149);
     --color-bg: rgb(28 28 28);
