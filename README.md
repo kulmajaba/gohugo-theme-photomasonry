@@ -242,7 +242,7 @@ The logic is more flexible:
 You can also create a block with text content and an image side by side (on large screens) by inserting the content between the shortcode tags:
 
 ```md
-{{< image src="profile.jpg" alt="Picture of the author" title="Credit: John Doe" figure=true alignEnd=true />}}
+{{< image src="profile.jpg" alt="Picture of the author" title="Credit: John Doe" figure=true alignEnd=true >}}
 ## Heading
 
 This content will appear next to the image.
@@ -252,3 +252,15 @@ This content will appear next to the image.
 - The image will be rendered at the start of the block (left for ltr direction) by default, setting `alignEnd=true` will switch the order
 - On small screens the block will flow vertically with the image always at the start.
 - Setting `maxWidth` in this situation will lead to unexpected results.
+
+#### Shortcodes
+
+Besides the image shortcode mentioned above, there is also a center shortcode for center-aligned text within posts:
+
+```md
+{{< center >}}
+## Heading
+
+This content will appear as centered.
+{{< /center >}}
+```
