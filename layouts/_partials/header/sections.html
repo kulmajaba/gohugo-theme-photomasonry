@@ -1,7 +1,7 @@
 {{- $menu := .menu -}}
 
 {{- with .context -}}
-  {{- range .Site.Sections -}}
+  {{- range sort .Site.Sections -}}
     <li class="Header-navItem u-alignRowCenter {{- if $menu }} is-menu{{- end -}}">
       <a class="Header-navLink" href="{{ .RelPermalink }}">{{ .Title }}</a>
     </li>
