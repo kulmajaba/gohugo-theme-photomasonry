@@ -9,7 +9,7 @@
 {{- end -}}
 
 <!DOCTYPE html>
-<html lang="{{ or site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+<html lang="{{ or site.Language.Locale }}" dir="{{ or site.Language.Direction `ltr` }}">
   <head>
     {{ partial "head" . }}
     {{- partialCached "head/js-scroll-state.html" . -}}
