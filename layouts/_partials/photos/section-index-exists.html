@@ -1,0 +1,20 @@
+{{- $page := . -}}
+
+{{/* Safety for photo-thumbnail */}}
+{{- if not $page.IsPage -}}
+  {{- return true -}}
+{{- end -}}
+
+{{- $section := $page.CurrentSection -}}
+
+{{/* Safety for top-level section, taxonomy and term pages, also pages without a parent section */}}
+{{- if or (not $page.File) (not $section) (not $section.File) -}}
+  {{- return true -}}
+{{- end -}}
+
+{{- if ne $page.File.Dir $section.File.Dir -}}
+  {{- partialCached "photos/report-missing-section-index" $page.File.Dir $page.File.Dir -}}
+  {{- return false -}}
+{{- end -}}
+
+{{- return true -}}

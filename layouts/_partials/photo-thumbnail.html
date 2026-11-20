@@ -11,20 +11,21 @@
 {{- $cropPortrait := "720x960 q70 webp" -}}
 
 {{- with .context -}}
-  {{- $coverFileName := partial "get-cover-image" . -}}
-  {{- if eq $coverFileName "" -}}
-    {{- errorf "Cannot render thumbnail for %s" .RelPermalink -}}
-  {{- end -}}
+  {{- if (partial "photos/section-index-exists" .) -}}
+    {{- $coverFileName := partial "get-cover-image" . -}}
+    {{- if eq $coverFileName "" -}}
+      {{- errorf "Cannot render thumbnail for %s" .RelPermalink -}}
+    {{- end -}}
 
-  {{- $url := .RelPermalink -}}
-  {{- if $source -}}
-    {{- $url = printf "%s?source=%s" .RelPermalink $source -}}
-  {{- end -}}
+    {{- $url := .RelPermalink -}}
+    {{- if $source -}}
+      {{- $url = printf "%s?source=%s" .RelPermalink $source -}}
+    {{- end -}}
 
-  {{- with partial "get-resource" (dict "context" . "fileName" $coverFileName) -}}
-    {{- $image := . -}}
+    {{- with partial "get-resource" (dict "context" . "fileName" $coverFileName) -}}
+      {{- $image := . -}}
 
-    {{- if gt (div (float .Width) .Height) 1.5 -}}
+      {{- if gt (div (float .Width) .Height) 1.5 -}}
         {{- $image = .Fit $resizeLandscape -}}
       {{- else if lt (div (float .Width) .Height) 1.0 -}}
         {{- $image = .Fit $resizePortrait -}}
@@ -32,25 +33,26 @@
         {{- $image = .Fit $resizeNormal -}}
       {{- end -}}
 
-    {{- if or $cropImages $isSection -}}
-      {{- if gt (div (float .Width) .Height) 2.0 -}}
-        {{- $image = .Fill $cropLandscape -}}
-      {{- else if lt (div (float .Width) .Height) 0.8 -}}
-        {{- $image = .Fill $cropPortrait -}}
-      {{- else -}}
-        {{- $image = .Fit $cropNormal -}}
+      {{- if or $cropImages $isSection -}}
+        {{- if gt (div (float .Width) .Height) 2.0 -}}
+          {{- $image = .Fill $cropLandscape -}}
+        {{- else if lt (div (float .Width) .Height) 0.8 -}}
+          {{- $image = .Fill $cropPortrait -}}
+        {{- else -}}
+          {{- $image = .Fit $cropNormal -}}
+        {{- end -}}
       {{- end -}}
-    {{- end -}}
 
-    <a class="Thumbnails-thumb" href="{{ $url }}" style="--image-width:{{ $image.Width }};--image-height:{{ $image.Height }};">
-      {{ if $isSection -}}
-        <h2 class="Thumbnails-title u-noMargin">
-          {{- $title -}}
-        </h2>
-      {{- end -}}
-      <img class="Thumbnails-thumbImg" loading="lazy" src="{{ $image.RelPermalink }}" alt="{{ $title }}">
-    </a>
-  {{- else -}}
-    {{- errorf "Resource not found for %s: %s" .RelPermalink $coverFileName -}}
+      <a class="Thumbnails-thumb" href="{{ $url }}" style="--image-width:{{ $image.Width }};--image-height:{{ $image.Height }};">
+        {{ if $isSection -}}
+          <h2 class="Thumbnails-title u-noMargin">
+            {{- $title -}}
+          </h2>
+        {{- end -}}
+        <img class="Thumbnails-thumbImg" loading="lazy" src="{{ $image.RelPermalink }}" alt="{{ $title }}">
+      </a>
+    {{- else -}}
+      {{- errorf "Resource not found for %s: %s" .RelPermalink $coverFileName -}}
+    {{- end -}}
   {{- end -}}
 {{- end }}
